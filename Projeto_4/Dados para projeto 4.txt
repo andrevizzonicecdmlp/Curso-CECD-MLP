@@ -1,0 +1,6 @@
+Dados para projeto 4:
+
+- Baixar histórico de visualização da Netflix (explicado na aula)
+- Baixar em https://datasets.imdbws.com/ os arquivos:
+	- title.basics.tsv
+	- title.ratings.tsv
