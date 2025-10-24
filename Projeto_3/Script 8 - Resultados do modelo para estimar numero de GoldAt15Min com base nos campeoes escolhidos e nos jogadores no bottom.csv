@@ -1,0 +1,778 @@
+"";"x"
+"(Intercept)";4,70579273350067
+"BlueTeamChampionAshe";205,761235392119
+"BlueTeamChampionBrand";-1160,46213743726
+"BlueTeamChampionCaitlyn";425,846782669854
+"BlueTeamChampionCorki";276,26945249964
+"BlueTeamChampionDraven";240,829672755002
+"BlueTeamChampionEzreal";172,385217918644
+"BlueTeamChampionGalio";1532,95388636175
+"BlueTeamChampionGnar";-1436,57729302626
+"BlueTeamChampionHwei";1131,43623431089
+"BlueTeamChampionJhin";224,573737969793
+"BlueTeamChampionJinx";105,86461444613
+"BlueTeamChampionKaisa";26,4494615658898
+"BlueTeamChampionKalista";441,178310676848
+"BlueTeamChampionKogMaw";749,738082598664
+"BlueTeamChampionLeeSin";-1004,5189070575
+"BlueTeamChampionLucian";258,783790362394
+"BlueTeamChampionLux";922,876586194478
+"BlueTeamChampionMel";-69,4460031623447
+"BlueTeamChampionMissFortune";359,882509034664
+"BlueTeamChampionNilah";-524,392216787352
+"BlueTeamChampionRumble";2132,72301671252
+"BlueTeamChampionSenna";-3414,98236332526
+"BlueTeamChampionSeraphine";-248,909774050398
+"BlueTeamChampionSion";2302,58195971964
+"BlueTeamChampionSivir";84,2089061472091
+"BlueTeamChampionSmolder";-433,961397644202
+"BlueTeamChampionSwain";700,133022688405
+"BlueTeamChampionTaliyah";773,625353396499
+"BlueTeamChampionTristana";153,383096231526
+"BlueTeamChampionTwitch";-1026,15938045548
+"BlueTeamChampionVarus";313,091563081235
+"BlueTeamChampionVayne";8,86853507824433
+"BlueTeamChampionViktor";-1037,15205519415
+"BlueTeamChampionXayah";342,799794638845
+"BlueTeamChampionYasuo";244,820806227761
+"BlueTeamChampionZeri";122,436202093912
+"BlueTeamChampionZiggs";266,942338249148
+"BlueTeamChampionZyra";-406,911857368635
+"RedTeamChampionAshe";148,421027114504
+"RedTeamChampionBrand";419,496486716589
+"RedTeamChampionCaitlyn";-26,773969010696
+"RedTeamChampionCassiopeia";-340,567463624819
+"RedTeamChampionCorki";51,3328552852847
+"RedTeamChampionDraven";-456,93959570639
+"RedTeamChampionEzreal";193,505498702481
+"RedTeamChampionHwei";153,955742415116
+"RedTeamChampionJhin";272,074815808617
+"RedTeamChampionJinx";179,637682550457
+"RedTeamChampionKaisa";170,300281191973
+"RedTeamChampionKalista";-22,6214272974543
+"RedTeamChampionKogMaw";275,16785524937
+"RedTeamChampionLucian";354,2277039095
+"RedTeamChampionMel";76,3794295955833
+"RedTeamChampionMissFortune";1,68188224811286
+"RedTeamChampionNilah";456,779245683885
+"RedTeamChampionOrianna";605,089841782859
+"RedTeamChampionOrnn";-258,708676387087
+"RedTeamChampionRumble";176,253997670413
+"RedTeamChampionSenna";2058,90711973914
+"RedTeamChampionSeraphine";500,475351341153
+"RedTeamChampionSivir";391,703233066548
+"RedTeamChampionSmolder";244,583037483305
+"RedTeamChampionSwain";325,879778995332
+"RedTeamChampionTahmKench";682,921323554744
+"RedTeamChampionTaliyah";668,323129864317
+"RedTeamChampionTristana";162,968814652252
+"RedTeamChampionTwitch";935,539603376024
+"RedTeamChampionVarus";61,1670472090107
+"RedTeamChampionVayne";2731,94209864032
+"RedTeamChampionVeigar";888,300115155477
+"RedTeamChampionVelkoz";276,264568732664
+"RedTeamChampionXayah";127,239665005088
+"RedTeamChampionXerath";-1239,19390567232
+"RedTeamChampionYasuo";-2623,77891626883
+"RedTeamChampionZeri";220,115504214687
+"RedTeamChampionZiggs";155,813817066526
+"BlueTeamPlayer1M MetroArcher";-2051,71280284027
+"BlueTeamPlayer1M Unkn0wn";-937,034260846517
+"BlueTeamPlayer5M Ratao";144,189927815268
+"BlueTeamPlayer7D 6onza";-947,352985528285
+"BlueTeamPlayer7D Hika";-688,78291771445
+"BlueTeamPlayerAFW Vaynedeta";-382,823937083038
+"BlueTeamPlayerALHope";203,196195915305
+"BlueTeamPlayerAMI Bazz1";-146,163882873455
+"BlueTeamPlayerANB kehvo";-925,057803527343
+"BlueTeamPlayerANB Kehvo";-1432,32809973402
+"BlueTeamPlayerANB Mimic1";-1752,26064254744
+"BlueTeamPlayerANC Brizz";-1945,25086751035
+"BlueTeamPlayerAOMA Guppy";-1895,76629641289
+"BlueTeamPlayerAOMA MrHB";-1527,41600839037
+"BlueTeamPlayerAPM Nikiyas";-1411,16935968947
+"BlueTeamPlayerAPM Odi11";-781,768253473864
+"BlueTeamPlayerARA Khaydarin";-2321,64622329892
+"BlueTeamPlayerAXL Crem";-1360,02759098489
+"BlueTeamPlayerB2TG Lothen";-1523,21173094273
+"BlueTeamPlayerBAM Nawaf";-633,436855622558
+"BlueTeamPlayerBAR Legolas";-1111,20858310051
+"BlueTeamPlayerBCT L1mit";907,478972295803
+"BlueTeamPlayerBDG Exofeng";-869,508763986453
+"BlueTeamPlayerBDS Ice";-142,835499981853
+"BlueTeamPlayerBDSA Mishi";-625,232733329156
+"BlueTeamPlayerBDSA Piwek";-771,162838511924
+"BlueTeamPlayerBE5 Pl0x";-682,930009856916
+"BlueTeamPlayerBER Berimbau";-2335,44768601264
+"BlueTeamPlayerBFX Diable";-190,951248723408
+"BlueTeamPlayerBFX Envyy";-774,489770778805
+"BlueTeamPlayerBGT ToongE";-335,25398273992
+"BlueTeamPlayerBIG Bean";-241,14507644366
+"BlueTeamPlayerBJK Lens";-773,859149743096
+"BlueTeamPlayerBJK Neon";93,6127639269533
+"BlueTeamPlayerBKD chilioil";-393,191471243686
+"BlueTeamPlayerBKR BOOSHI";-1210,84531796459
+"BlueTeamPlayerBKR Keduii";-126,647300158643
+"BlueTeamPlayerBLDP Nawa";-711,630470385158
+"BlueTeamPlayerBLDP Slayder";-397,826688010958
+"BlueTeamPlayerBLGElk";-60,2731592402617
+"BlueTeamPlayerBLUE Levitate";-345,888045143219
+"BlueTeamPlayerBRO Bull";-1197,29844876466
+"BlueTeamPlayerBRO Ellim";NA
+"BlueTeamPlayerBRO Hype ";-535,040442344536
+"BlueTeamPlayerBRO Levy";-3315,56899121133
+"BlueTeamPlayerBRT Esko";1,40035801683006
+"BlueTeamPlayerBVL MayR";844,82475714669
+"BlueTeamPlayerBW Scorth";-512,934472940311
+"BlueTeamPlayerBWE NBA";-1291,30570460794
+"BlueTeamPlayerC9 Zven";-648,949597730404
+"BlueTeamPlayerCBC SkyK";-1434,5734966144
+"BlueTeamPlayerCCG Array";84,2912793446908
+"BlueTeamPlayerCFO Doggo";-324,614520840868
+"BlueTeamPlayerCFOA Cuicuixi";-671,304496910096
+"BlueTeamPlayerCG Zewih";-1603,67398365445
+"BlueTeamPlayerCGN Reptile";-431,868779994083
+"BlueTeamPlayerCHF leemas";-1432,39154899379
+"BlueTeamPlayerCHF Violet";-1438,66684748425
+"BlueTeamPlayerCK Damocles";-144,299225890391
+"BlueTeamPlayerCKZ Luca Brassi";-52,0126332174316
+"BlueTeamPlayerCNA Pcelica";-1018,94096575509
+"BlueTeamPlayerCNV Chrome";111,083023565233
+"BlueTeamPlayerCRZ Rashiro";-1452,4229250362
+"BlueTeamPlayerCZV Devn";-1115,5555158896
+"BlueTeamPlayerDCG Feng ";155,530856400527
+"BlueTeamPlayerDFM Kakkun";-1163,40490063815
+"BlueTeamPlayerDFM Milan";-910,233554634301
+"BlueTeamPlayerDFMA Deant9";92,9494565700076
+"BlueTeamPlayerDG W1ng";396,550913449379
+"BlueTeamPlayerDIG Tomo";-526,244593100781
+"BlueTeamPlayerDINO Harky";-1166,97140685844
+"BlueTeamPlayerDK Aiming";25,9770555414819
+"BlueTeamPlayerDK Wayne";-1067,17498163802
+"BlueTeamPlayerDM history";811,819145265806
+"BlueTeamPlayerDMG Faetski";-1281,74252007722
+"BlueTeamPlayerDND Innaxe";-599,871269193074
+"BlueTeamPlayerDND Reptile";-564,54503568752
+"BlueTeamPlayerDNE BlackSwan";205,785998425917
+"BlueTeamPlayerDNET Rias1";1420,63182417264
+"BlueTeamPlayerDNF Berserker";189,781417960165
+"BlueTeamPlayerDNF Slayer";-954,821854124658
+"BlueTeamPlayerDOC Sidav";-1306,69815934885
+"BlueTeamPlayerDPM Kojima";-251,567017499285
+"BlueTeamPlayerDPM micaO";-670,512037766642
+"BlueTeamPlayerDRX Alive";-1044,20200882581
+"BlueTeamPlayerDRX LazyFeel";-821,142336128524
+"BlueTeamPlayerDRX Teddy";-188,138476022321
+"BlueTeamPlayerDSG ScaryJerry";-793,87734097363
+"BlueTeamPlayerDVG 452apm";897,109764327782
+"BlueTeamPlayerDVKM Lucker";-1133,12399386669
+"BlueTeamPlayerDVX Etoo";26,8739870627755
+"BlueTeamPlayerDZ sajed";-202,842578339297
+"BlueTeamPlayerDZ Spawn";-1694,64036418094
+"BlueTeamPlayerEDGAhn";-92,3468687679162
+"BlueTeamPlayerEDGAssum";-533,90221938052
+"BlueTeamPlayerEE Morfan";1338,15749375892
+"BlueTeamPlayerEF Ruep";-390,947434998824
+"BlueTeamPlayerEF RUEP";192,700394962995
+"BlueTeamPlayerEINS Broeki";-882,228375044178
+"BlueTeamPlayerEIQ Strode";789,549176985007
+"BlueTeamPlayerEKO MrFreezed";-1648,09755437024
+"BlueTeamPlayerESB Ascend";690,990956049381
+"BlueTeamPlayerESBA ONLY";1099,09900680591
+"BlueTeamPlayerET Kumew";-1359,02213260287
+"BlueTeamPlayerEWI noz2k";-460,042050476445
+"BlueTeamPlayerF0X Fede";-918,298124743653
+"BlueTeamPlayerFAK Shunn";-200,395002013159
+"BlueTeamPlayerFES Paladin";-2066,6067057211
+"BlueTeamPlayerFLA NinjaKiwi";-77,4227820811785
+"BlueTeamPlayerFLH Frankfurt";3631,33998340396
+"BlueTeamPlayerFLH MetroArcher";-2209,33723485545
+"BlueTeamPlayerFLY Massu";-353,102222502989
+"BlueTeamPlayerFMS zamulek";-1385,81716408918
+"BlueTeamPlayerFNC Upset";83,4718980514678
+"BlueTeamPlayerFOG AKLASS";-1148,10941509623
+"BlueTeamPlayerFPXAssum";34,0255627083303
+"BlueTeamPlayerFPXbat";-229,400736638489
+"BlueTeamPlayerFSK Odi11";-2653,08727029812
+"BlueTeamPlayerFSK Pangjin";-1120,64953205825
+"BlueTeamPlayerFTW Worst";-162,362568261766
+"BlueTeamPlayerFUE Gavotto";-623,192430144115
+"BlueTeamPlayerFUR Ayu";-758,973593324131
+"BlueTeamPlayerFVN ianshaka";-322,002519623843
+"BlueTeamPlayerFX Marvin";-1144,69693069179
+"BlueTeamPlayerFXW7 Marvin";-270,117003345897
+"BlueTeamPlayerG2 Hans Sama";-157,135440221293
+"BlueTeamPlayerGAM Artemis";-1254,12253461153
+"BlueTeamPlayerGEN About";-198,24533381007
+"BlueTeamPlayerGEN Ruler";72,9318003286505
+"BlueTeamPlayerGK FlickeR";-1072,04744888927
+"BlueTeamPlayerGK Trigger";-478,162503915074
+"BlueTeamPlayerGL Jezu";-467,947771988227
+"BlueTeamPlayerGLR KNEZA";1715,47082174131
+"BlueTeamPlayerGLR Neramin";202,934295245087
+"BlueTeamPlayerGMB Marth";-1636,64491405234
+"BlueTeamPlayerGNG Aeru";-1463,27989927206
+"BlueTeamPlayerGNG Antonio";-1029,71328247329
+"BlueTeamPlayerGOAL Druxy";-1218,21380445249
+"BlueTeamPlayerGSMC Kenal";-637,812014395675
+"BlueTeamPlayerGSMC LINDGARDE";-548,899612801352
+"BlueTeamPlayerGSNS ECSTASSY";-1746,93778666574
+"BlueTeamPlayerGSNS RustySniper";-1977,55432345487
+"BlueTeamPlayerGTZ Daksider";-1058,58673929681
+"BlueTeamPlayerGTZ Shakur";30,1161069384638
+"BlueTeamPlayerGW Matias";-784,099601174868
+"BlueTeamPlayerGX Noah";-561,187983440668
+"BlueTeamPlayerGXP Aetinoth";-670,803920675466
+"BlueTeamPlayerGZ Cheng9";-720,062261288118
+"BlueTeamPlayerGZ Lilv";65,5066713923869
+"BlueTeamPlayerHELL ECSTASSY";-1530,00854605131
+"BlueTeamPlayerHELL MrPhant0m";16,389539080002
+"BlueTeamPlayerHKUF Prage";-1032,16762715726
+"BlueTeamPlayerHKUF Sun1";-1202,46041002489
+"BlueTeamPlayerHLE Pyeonsik";-807,451600171035
+"BlueTeamPlayerHLE Viper";-256,909574331086
+"BlueTeamPlayerHOF Carros 2";890,460778168116
+"BlueTeamPlayerHPS Cheng9";-327,306849695432
+"BlueTeamPlayerHPS Pika1";-687,2362253898
+"BlueTeamPlayerHRK Hhiep";-83,0093288826668
+"BlueTeamPlayerHRK Ouzi";-1242,32562816515
+"BlueTeamPlayerHRTS Rin";-811,433092174035
+"BlueTeamPlayerHVE Aomine";-810,776682928427
+"BlueTeamPlayerICON VirusFx";-1076,13109254021
+"BlueTeamPlayerIE Snaker";-782,93833990353
+"BlueTeamPlayerIGGALA";449,388646130552
+"BlueTeamPlayerIJC Hans SamD";-149,141168421136
+"BlueTeamPlayerIN5 Hattor1s";-2043,61081416115
+"BlueTeamPlayerIN5 Jamie";-589,696446791126
+"BlueTeamPlayerINF Fatorix";-547,134266241845
+"BlueTeamPlayerING Demoncior";1631,53045274809
+"BlueTeamPlayerJDGPeyz";184,855675206655
+"BlueTeamPlayerJL Deadly";-275,175604534986
+"BlueTeamPlayerJMGG DDan";-2066,84962874694
+"BlueTeamPlayerKAOS ardaffler";-1302,06445984649
+"BlueTeamPlayerKAOS Reje";-2276,03766121364
+"BlueTeamPlayerKBM scuro";-331,742195272499
+"BlueTeamPlayerKC Caliste";-421,192618634219
+"BlueTeamPlayerKCB 3XA";-460,782151424909
+"BlueTeamPlayerKCH TenT";82,5427969161848
+"BlueTeamPlayerKHK Funk3y";-660,809610161472
+"BlueTeamPlayerKHK Jeskla";-519,616957163613
+"BlueTeamPlayerKMF zamulek";-881,382255595601
+"BlueTeamPlayerKT deokdam";-604,02191206484
+"BlueTeamPlayerKT Paduck";-576,266451254473
+"BlueTeamPlayerKYP Exduardo";1624,28832479613
+"BlueTeamPlayerKYP IDA";-2427,91639656806
+"BlueTeamPlayerLDS Anyone";-1885,57920664067
+"BlueTeamPlayerLDS Salami";-1649,35015452717
+"BlueTeamPlayerLEV ceo";-472,731176424429
+"BlueTeamPlayerLG Tactical";314,475167387073
+"BlueTeamPlayerLGDShaoye";-161,968517830422
+"BlueTeamPlayerLLS RustySniper";-1276,27186515293
+"BlueTeamPlayerLNGLP";-130,285946110208
+"BlueTeamPlayerLNGPhotic";-842,354970549471
+"BlueTeamPlayerLOS Netuno";-180,360284639529
+"BlueTeamPlayerLOUD Route";-1104,57438283283
+"BlueTeamPlayerLPS Dezo";-2060,91286002942
+"BlueTeamPlayerLR Crownie";-355,81936011868
+"BlueTeamPlayerLUA Shy Carry";-1832,84277344773
+"BlueTeamPlayerLUP Deadhound";NA
+"BlueTeamPlayerLYON Hena";-682,799682530461
+"BlueTeamPlayerLYON Intio";-533,690204561257
+"BlueTeamPlayerM8 Comp";-741,466154688536
+"BlueTeamPlayerMAZ LAC";-1187,97640552582
+"BlueTeamPlayerMCK FlickeR";-1488,42536427117
+"BlueTeamPlayerMCON choego";-1650,47539058026
+"BlueTeamPlayerMGZ DeathArrow";-1990,29848463517
+"BlueTeamPlayerMIE Kotvyc 74";281,113407175331
+"BlueTeamPlayerMISA Kaori";-1241,11259676802
+"BlueTeamPlayerMISA Lens";-369,166647603317
+"BlueTeamPlayerMISA Neon";-963,733317566082
+"BlueTeamPlayerMKF UNF0RGIVEN";-1529,32422383474
+"BlueTeamPlayerMKOI Supa";-184,895700437806
+"BlueTeamPlayerMVE Huron";2096,27819502473
+"BlueTeamPlayerMVG Horus";-1119,12924880751
+"BlueTeamPlayerMVKE Shogun";-885,541851229439
+"BlueTeamPlayerMVKE Sty1e";-501,923578201735
+"BlueTeamPlayerMYTH Space";-1937,493668291
+"BlueTeamPlayerNA Doublelift";-18,9167010245365
+"BlueTeamPlayerNBS raining";597,730436098924
+"BlueTeamPlayerNCP saru";456,033031270679
+"BlueTeamPlayerNF Geraldes";-186,050065608933
+"BlueTeamPlayerNF Oshii";-655,258057861157
+"BlueTeamPlayerNGU Slowz";-1888,65032929794
+"BlueTeamPlayerNGX Rust";-1518,5429740747
+"BlueTeamPlayerNIPLeave";-34,9362239103879
+"BlueTeamPlayerNORD Innaxe";-702,301651862648
+"BlueTeamPlayerNORD xMatty";-1310,82844961627
+"BlueTeamPlayerNS Jiwoo";-668,577400089677
+"BlueTeamPlayerNS Lucy";-802,087050067896
+"BlueTeamPlayerNS vital";-507,246653187141
+"BlueTeamPlayerOAE Mis";-1843,36307573197
+"BlueTeamPlayerOAE svns";-1579,59348844984
+"BlueTeamPlayerOAE Yen";-1647,61371647277
+"BlueTeamPlayerODD Solorio";-808,270826153273
+"BlueTeamPlayerODD Vayzer";-1209,84560082817
+"BlueTeamPlayerOMGStarry";-364,039177875517
+"BlueTeamPlayerOSC KNEZA";148,119578371128
+"BlueTeamPlayerOUAT Sm0oZi";-1727,24263901461
+"BlueTeamPlayerPAIN TitaN";-612,674631748589
+"BlueTeamPlayerPK boLa";-169,771932105424
+"BlueTeamPlayerPK Naros";2826,78161707075
+"BlueTeamPlayerPLS Hub";-478,041094075977
+"BlueTeamPlayerPXS Mihai";-1495,45244332727
+"BlueTeamPlayerQTD Yuhi";726,028081380049
+"BlueTeamPlayerRATZ Beenie";-603,997687662841
+"BlueTeamPlayerRATZ Buero";-517,657127481238
+"BlueTeamPlayerRBT Coldraa";-1628,64468981276
+"BlueTeamPlayerRBT Unkn0wn";-1808,97127662149
+"BlueTeamPlayerRC Samver";683,284205355165
+"BlueTeamPlayerRED Brance";-634,098445917397
+"BlueTeamPlayerRED Rabelo";-688,753022488549
+"BlueTeamPlayerRFS CHECKFIDER";192,660049810392
+"BlueTeamPlayerRFS KABA";-938,931557570422
+"BlueTeamPlayerRG Nomi";-1130,27957818547
+"BlueTeamPlayerRG Rhythm";-1296,9236956373
+"BlueTeamPlayerRGE Patrik";-708,459564025008
+"BlueTeamPlayerRISE aikawa";-44,9524452041464
+"BlueTeamPlayerRNGJiaQi";-600,830524962093
+"BlueTeamPlayerROSS Syzyfek";-630,563929360747
+"BlueTeamPlayerRS Humzh";-633,596561394514
+"BlueTeamPlayerRS Nata";-509,500635271402
+"BlueTeamPlayerSCCP Trigo";-112,61486620166
+"BlueTeamPlayerSDM Instinct";-11,3684505271327
+"BlueTeamPlayerSDM Nannini";-668,924390893413
+"BlueTeamPlayerSDM Sully";-2081,31871456164
+"BlueTeamPlayerSDM Zeypher";317,907336155519
+"BlueTeamPlayerSGE Varry";-982,185193055911
+"BlueTeamPlayerSHG Marble";-503,582316311223
+"BlueTeamPlayerSIC Naitz";-169,997744579477
+"BlueTeamPlayerSK Keduii";-191,924968367113
+"BlueTeamPlayerSK Rahel";-133,591489135925
+"BlueTeamPlayerSLY TakeSet";-96,9944456430318
+"BlueTeamPlayerSN Shogo";-599,740115647703
+"BlueTeamPlayerSNSH Asza";-1307,53215506747
+"BlueTeamPlayerSPK Yuki ";-724,479436760957
+"BlueTeamPlayerSQG chico";-366,763848882974
+"BlueTeamPlayerSQG Sunleaf";-448,887197597608
+"BlueTeamPlayerSR Bvoy";-254,026660450205
+"BlueTeamPlayerSSE Neo";-1114,59324474126
+"BlueTeamPlayerSTAR Frexey";-1490,02909125548
+"BlueTeamPlayerSTAR Royeq";-1735,91654344082
+"BlueTeamPlayerSTE Celo";-17,6399189703268
+"BlueTeamPlayerSUP BAO";-212,237758597381
+"BlueTeamPlayerSUP basei";-1351,75133575668
+"BlueTeamPlayerSUP Cako";-988,412607959865
+"BlueTeamPlayerT1 Cypher";-956,753360742169
+"BlueTeamPlayerT1 Gumayusi";-111,009129819377
+"BlueTeamPlayerT1 Guti";-436,719308067129
+"BlueTeamPlayerT1 Smash";110,486332527573
+"BlueTeamPlayerTES JackeyLove";-504,368686065303
+"BlueTeamPlayerTESJackeyLove";-256,87887267393
+"BlueTeamPlayerTF Puddin";-1770,47868152594
+"BlueTeamPlayerTH Flakked";-300,678779067542
+"BlueTeamPlayerTL Yeon";-152,569699013334
+"BlueTeamPlayerTLN Betty";-1054,0120791868
+"BlueTeamPlayerTLNA Dotmm";-231,479803067431
+"BlueTeamPlayerTML Astrasmaug";1370,69914408616
+"BlueTeamPlayerTNI Sirinox";-135,165986486917
+"BlueTeamPlayerTOG Vzz";-306,281639556358
+"BlueTeamPlayerTP Axelent";-812,2004365548
+"BlueTeamPlayerTPX Neramin";87,3991969457441
+"BlueTeamPlayerTPX Paparotis";-1683,19955793825
+"BlueTeamPlayerTS Pain5";-2480,19958676343
+"BlueTeamPlayerTSC Yakkey";-1755,93859419285
+"BlueTeamPlayerTSW Eddie";-501,825630897093
+"BlueTeamPlayerTT1xn";-392,132692730728
+"BlueTeamPlayerUCAM ANDARIEL";-1426,4986557032
+"BlueTeamPlayerULF GRAVE";-360,820076156042
+"BlueTeamPlayerUNIT Daksider";579,502955780341
+"BlueTeamPlayerUNIT Notiko";657,352506470105
+"BlueTeamPlayerUPWako";-584,137093533045
+"BlueTeamPlayerUSE DenVoksne";-204,943541368886
+"BlueTeamPlayerUW Zewih";-1239,09518618621
+"BlueTeamPlayerV3 ezman";3090,94767894659
+"BlueTeamPlayerVER Mishi";-873,478061193382
+"BlueTeamPlayerVER Shiganari";-1016,70889098191
+"BlueTeamPlayerVIT Carzzy";-521,05436941766
+"BlueTeamPlayerVITB Jopa";-790,052540576192
+"BlueTeamPlayerVK motimotti11";121,130810863373
+"BlueTeamPlayerVKS Morttheus";-515,657123497058
+"BlueTeamPlayerVKS Smiley";-495,277793939728
+"BlueTeamPlayerVLY rakii";373,295940177683
+"BlueTeamPlayerVNC Kobbe";-1226,22763290282
+"BlueTeamPlayerVNC Mauki";-1153,14051527808
+"BlueTeamPlayerVVV Rayito";-1799,49083289828
+"BlueTeamPlayerWAP Frixter";-1462,35298552828
+"BlueTeamPlayerWAP Strensh";-1024,06351404145
+"BlueTeamPlayerWBGLight";-96,0856553648701
+"BlueTeamPlayerWD BOOSHI";-1498,5974253388
+"BlueTeamPlayerWETaeyoon";-76,6571530866056
+"BlueTeamPlayerWIN chico";35,954494506273
+"BlueTeamPlayerWLG MrPhant0m";-1345,91648790337
+"BlueTeamPlayerWLG Rafitta";-868,82050943272
+"BlueTeamPlayerWLG Ralf";-822,043554339834
+"BlueTeamPlayerWP chillguys";-32,0561106264424
+"BlueTeamPlayerWT ChiCh1";-845,008694256851
+"BlueTeamPlayerWT yukin0";-1196,08708856292
+"BlueTeamPlayerWU Mobility";-104,495006581942
+"BlueTeamPlayerYYG hourosummer";312,054087919509
+"BlueTeamPlayerYYG NaiNa";-299,721029976048
+"BlueTeamPlayerZ10 Huubiii";-2871,97765394763
+"BlueTeamPlayerZ10 Woolite";-1220,94946990826
+"BlueTeamPlayerZ5 Dya";-602,361065822554
+"BlueTeamPlayerZENA Carros 2";-1822,83550467441
+"BlueTeamPlayerZENA Druk";-2099,02009696553
+"BlueTeamPlayerZENA MKR";-2034,31514702863
+"BlueTeamPlayerZNT Afriibi";-1288,64525119552
+"BlueTeamPlayerZTA Adryh";-2360,67513226507
+"BlueTeamPlayerZTA Mauki";-1559,53832163531
+"BlueTeamPlayerZZG Oceann";-2578,69306972677
+"RedTeamPlayer1M MetroArcher";1056,38895140388
+"RedTeamPlayer1M Unkn0wn";213,067092496474
+"RedTeamPlayer7D Hika";210,155204598136
+"RedTeamPlayerAFW Vaynedeta";-27,8183736525897
+"RedTeamPlayerALHope";-504,964473791929
+"RedTeamPlayerAMI Bazz1";-634,635039611761
+"RedTeamPlayerANB kehvo";652,553763755673
+"RedTeamPlayerANC Brizz";2021,02130449727
+"RedTeamPlayerANK Pcelica";451,505454847862
+"RedTeamPlayerAOMA Guppy";1448,94975550269
+"RedTeamPlayerAOMA MrHB";1276,92663266885
+"RedTeamPlayerAPM Nikiyas";451,894803346165
+"RedTeamPlayerAPM Odi11";315,507527064154
+"RedTeamPlayerARA Khaydarin";2160,6265902217
+"RedTeamPlayerAXL Crem";757,61984608139
+"RedTeamPlayerB2TG Lothen";1388,13699031566
+"RedTeamPlayerB2TG wittman";1264,6439847158
+"RedTeamPlayerBAM Nawaf";823,469200940511
+"RedTeamPlayerBAR Legolas";1291,64512097401
+"RedTeamPlayerBCT L1mit";-813,988810641126
+"RedTeamPlayerBDG Exofeng";497,959721001786
+"RedTeamPlayerBDS Ice";52,4342244869235
+"RedTeamPlayerBDSA Mishi";-327,975214274918
+"RedTeamPlayerBE5 Pl0x";1388,34864785994
+"RedTeamPlayerBER Besnaga";NA
+"RedTeamPlayerBFX Diable";-106,079057652318
+"RedTeamPlayerBFX Envyy";687,839900573317
+"RedTeamPlayerBGT ToongE";-38,3208751816118
+"RedTeamPlayerBIG Bean";-65,8600058824902
+"RedTeamPlayerBJK Lens";-242,835174424031
+"RedTeamPlayerBJK Neon";-574,425063647791
+"RedTeamPlayerBKD razu";-1506,21435925951
+"RedTeamPlayerBKR BOOSHI";443,934219338173
+"RedTeamPlayerBKR Keduii";222,018213605578
+"RedTeamPlayerBLDP Nawa";-241,631799456129
+"RedTeamPlayerBLDP Slayder";177,807594667817
+"RedTeamPlayerBLGElk";-290,211089461785
+"RedTeamPlayerBLUE Levitate";-327,660109191366
+"RedTeamPlayerBRO Bull";204,584209012138
+"RedTeamPlayerBRO Hype ";-115,720741241677
+"RedTeamPlayerBRO Levy";882,408352419611
+"RedTeamPlayerBRT Esko";-1070,32734434056
+"RedTeamPlayerBVL MayR";-189,119513447562
+"RedTeamPlayerBW Scorth";-111,063775684309
+"RedTeamPlayerBWE NBA";NA
+"RedTeamPlayerC9 Zven";-205,572176530325
+"RedTeamPlayerCBC SkyK";2431,65063508472
+"RedTeamPlayerCCG Array";-416,102137954354
+"RedTeamPlayerCFO Doggo";103,10994462748
+"RedTeamPlayerCFOA Cuicuixi";32,1047158138456
+"RedTeamPlayerCG Zewih";1398,9426802189
+"RedTeamPlayerCGN Reptile";369,607256829862
+"RedTeamPlayerCHF leemas";1082,2521325655
+"RedTeamPlayerCK Damocles";-481,132124062964
+"RedTeamPlayerCKZ Luca Brassi";-1159,42517070106
+"RedTeamPlayerCNA Pcelica";1848,68152889512
+"RedTeamPlayerCNV Chrome";-540,582630904332
+"RedTeamPlayerCRZ Rashiro";NA
+"RedTeamPlayerCZV Devn";674,872908661405
+"RedTeamPlayerDCG Feng ";-534,704802064408
+"RedTeamPlayerDFM Kakkun";911,868518758637
+"RedTeamPlayerDFMA Deant9";-847,739169857389
+"RedTeamPlayerDG W1ng";-282,355765482081
+"RedTeamPlayerDIG Tomo";-237,784979224297
+"RedTeamPlayerDINO Harky";1243,71392761156
+"RedTeamPlayerDK Aiming";-284,398185100571
+"RedTeamPlayerDK Wayne";948,370730780138
+"RedTeamPlayerDM history";-568,271456609545
+"RedTeamPlayerDMG Faetski";816,447659343561
+"RedTeamPlayerDND Innaxe";738,913100127872
+"RedTeamPlayerDND Reptile";166,390300417644
+"RedTeamPlayerDNE BlackSwan";-829,393188820444
+"RedTeamPlayerDNET Rias1";-250,102029002364
+"RedTeamPlayerDNF Berserker";85,9708585616455
+"RedTeamPlayerDNF Slayer";80,6003187548866
+"RedTeamPlayerDOC Sidav";1676,19119673836
+"RedTeamPlayerDPM Kojima";68,9664057571266
+"RedTeamPlayerDPM micaO";NA
+"RedTeamPlayerDRX Alive";-102,708880503367
+"RedTeamPlayerDRX LazyFeel";275,045345118172
+"RedTeamPlayerDRX Teddy";-71,3722578024487
+"RedTeamPlayerDSG ScaryJerry";-112,81949556136
+"RedTeamPlayerDVG 452apm";-2399,45619101345
+"RedTeamPlayerDVG Reedfoo";NA
+"RedTeamPlayerDVKM Lucker";1238,56096405601
+"RedTeamPlayerDVX Etoo";-1872,16533486092
+"RedTeamPlayerDZ sajed";-670,94227109314
+"RedTeamPlayerDZ Spawn";47,7292314040777
+"RedTeamPlayerEDGAhn";-157,363669779755
+"RedTeamPlayerEDGAssum";358,788310949547
+"RedTeamPlayerEE Morfan";-1111,66472085013
+"RedTeamPlayerEF Ruep";-353,063842434983
+"RedTeamPlayerEINS Broeki";9,4712604935806
+"RedTeamPlayerEIQ Strode";-637,737023098747
+"RedTeamPlayerEKO MrFreezed";1603,54832708785
+"RedTeamPlayerESB Ascend";-637,277789312446
+"RedTeamPlayerESBA ONLY";-1634,6032899309
+"RedTeamPlayerET Kumew";717,631187557155
+"RedTeamPlayerET Viciun";-209,18942093494
+"RedTeamPlayerEWI noz2k";135,635451120761
+"RedTeamPlayerEXE LANDY";-808,308602433986
+"RedTeamPlayerF0X Fede";750,730931818385
+"RedTeamPlayerFAK Shunn";-662,200342976968
+"RedTeamPlayerFES Paladin";1407,63435883616
+"RedTeamPlayerFLA NinjaKiwi";42,0643745793182
+"RedTeamPlayerFLH Frankfurt";-1636,07981570693
+"RedTeamPlayerFLH MetroArcher";658,160953456293
+"RedTeamPlayerFLY Massu";-186,745708270795
+"RedTeamPlayerFMS zamulek";652,924436350857
+"RedTeamPlayerFNC Upset";-625,793206218172
+"RedTeamPlayerFOG AKLASS";1050,12751063906
+"RedTeamPlayerFPXAssum";-351,889844980006
+"RedTeamPlayerFPXbat";516,488223600857
+"RedTeamPlayerFSK Odi11";1345,96992809453
+"RedTeamPlayerFSK Pangjin";1248,89597028843
+"RedTeamPlayerFTW Worst";3198,56646364231
+"RedTeamPlayerFUE Gavotto";-397,889607334019
+"RedTeamPlayerFUR Ayu";78,1431735879525
+"RedTeamPlayerFVN ianshaka";-73,5193476482063
+"RedTeamPlayerFX Marvin";672,789403880994
+"RedTeamPlayerFXW7 Marvin";1082,25620069034
+"RedTeamPlayerG2 Hans Sama";-253,455359605979
+"RedTeamPlayerGAM Artemis";452,931452745488
+"RedTeamPlayerGAM Easylove";-9,86028049724535
+"RedTeamPlayerGEN About";335,834496307487
+"RedTeamPlayerGEN Ruler";-706,701964539048
+"RedTeamPlayerGK FlickeR";779,397129738556
+"RedTeamPlayerGK Trigger";-2,64946015378906
+"RedTeamPlayerGL Jezu";85,1491807829138
+"RedTeamPlayerGLR KNEZA";-820,675678187074
+"RedTeamPlayerGLR Neramin";242,734834064916
+"RedTeamPlayerGMB Marth";1228,10856763294
+"RedTeamPlayerGNG Aeru";1422,12120018673
+"RedTeamPlayerGNG Antonio";1103,95794446248
+"RedTeamPlayerGOAL Druxy";832,638962088925
+"RedTeamPlayerGSMC Kenal";658,613633386154
+"RedTeamPlayerGSMC LINDGARDE";-437,908881336206
+"RedTeamPlayerGSNS ECSTASSY";1165,52158020039
+"RedTeamPlayerGSNS RustySniper";1937,84498577188
+"RedTeamPlayerGTZ Daksider";1706,03594224553
+"RedTeamPlayerGUP ARUTNEVNR23";NA
+"RedTeamPlayerGW Matias";827,671039934769
+"RedTeamPlayerGX Noah";-72,8768495136841
+"RedTeamPlayerGXP Aetinoth";1107,76185258956
+"RedTeamPlayerGZ Cheng9";305,249952015421
+"RedTeamPlayerGZ Lilv";238,063844632318
+"RedTeamPlayerHELL ECSTASSY";548,413978483451
+"RedTeamPlayerHELL MrPhant0m";128,016952681418
+"RedTeamPlayerHKUF Prage";-286,782197817484
+"RedTeamPlayerHLE Pyeonsik";510,704453083701
+"RedTeamPlayerHLE Viper";-488,847992970712
+"RedTeamPlayerHOF Carros 2";1356,60972956696
+"RedTeamPlayerHOF PikaSensei";NA
+"RedTeamPlayerHOF Primata";2124,44932251837
+"RedTeamPlayerHPS Cheng9";109,078370653784
+"RedTeamPlayerHPS Pika1";-133,560804727474
+"RedTeamPlayerHRK Hhiep";527,63195354125
+"RedTeamPlayerHRK Ouzi";1073,93215350653
+"RedTeamPlayerHRTS Rin";1055,49535055404
+"RedTeamPlayerHVE Aomine";1410,66395897763
+"RedTeamPlayerICON Andreus";1154,49187232632
+"RedTeamPlayerICON VirusFx";406,125206546389
+"RedTeamPlayerIE Snaker";945,197872452768
+"RedTeamPlayerIGGALA";-168,260280901325
+"RedTeamPlayerIJC Hans SamD";-95,8502525264657
+"RedTeamPlayerIN5 Hattor1s";-760,647596941152
+"RedTeamPlayerIN5 Jamie";696,779974371602
+"RedTeamPlayerINF Fatorix";295,533099049298
+"RedTeamPlayerING Demoncior";NA
+"RedTeamPlayerJDGPeyz";-301,925876868984
+"RedTeamPlayerJL Deadly";397,284832735131
+"RedTeamPlayerJMGG DDan";1914,87395550885
+"RedTeamPlayerKAOS ardaffler";517,454603883755
+"RedTeamPlayerKAOS Baki";1220,1594814314
+"RedTeamPlayerKAOS Reje";609,333648857659
+"RedTeamPlayerKBM scuro";-307,872667463121
+"RedTeamPlayerKC Caliste";79,4378744991677
+"RedTeamPlayerKCB 3XA";127,526984257529
+"RedTeamPlayerKCH TenT";-422,7015945652
+"RedTeamPlayerKHK Funk3y";653,219856903132
+"RedTeamPlayerKHK Jeskla";-118,663691803154
+"RedTeamPlayerKMF zamulek";447,665570983602
+"RedTeamPlayerKOI UNF0RGIVEN";914,343881711929
+"RedTeamPlayerKT deokdam";403,466453237552
+"RedTeamPlayerKT Paduck";-21,7983673152297
+"RedTeamPlayerKYP Exduardo";2096,43501186561
+"RedTeamPlayerKYP IDA";1023,92322643087
+"RedTeamPlayerLDS Anyone";809,953780576984
+"RedTeamPlayerLEV ceo";140,544072600099
+"RedTeamPlayerLG Tactical";-357,055825803565
+"RedTeamPlayerLGDShaoye";-86,4057566683831
+"RedTeamPlayerLLS RustySniper";610,237927780744
+"RedTeamPlayerLNGLP";-62,6860323537098
+"RedTeamPlayerLNGPhotic";384,57721690647
+"RedTeamPlayerLOS Netuno";-19,273549927709
+"RedTeamPlayerLOUD Route";376,169326400527
+"RedTeamPlayerLPS Dezo";2299,46784334343
+"RedTeamPlayerLR Crownie";138,719376292581
+"RedTeamPlayerLUA Shy Carry";1411,74049093495
+"RedTeamPlayerLUP Deadhound";895,622251193436
+"RedTeamPlayerLYON Hena";118,330416241561
+"RedTeamPlayerLYON Intio";-26,9584867748726
+"RedTeamPlayerM8 Comp";-360,856634804431
+"RedTeamPlayerMAZ LAC";-373,448833332834
+"RedTeamPlayerMCK FlickeR";1012,13350414087
+"RedTeamPlayerMCON choego";1346,52078998491
+"RedTeamPlayerMIE Kotvyc 74";-1034,74043025997
+"RedTeamPlayerMISA Kaori";-163,537850775865
+"RedTeamPlayerMISA Lens";-33,6114791413889
+"RedTeamPlayerMISA Neon";70,3188074892197
+"RedTeamPlayerMKF UNF0RGIVEN";1005,74573716114
+"RedTeamPlayerMKOI Supa";-547,668287355399
+"RedTeamPlayerMVE Huron";-1556,53727311276
+"RedTeamPlayerMVG Horus";1136,58567621069
+"RedTeamPlayerMVKE Shogun";512,701754975403
+"RedTeamPlayerMYTH Space";1583,8222365275
+"RedTeamPlayerNA Doublelift";-194,501928261204
+"RedTeamPlayerNA Sushee";691,51160790301
+"RedTeamPlayerNBS raining";-805,541053897815
+"RedTeamPlayerNCP Nangning";NA
+"RedTeamPlayerNGU Slowz";1083,22594870969
+"RedTeamPlayerNGX Rust";446,562688941925
+"RedTeamPlayerNIPLeave";-656,347053958258
+"RedTeamPlayerNORD Innaxe";605,489182142625
+"RedTeamPlayerNORD xMatty";-111,482949842872
+"RedTeamPlayerNS Jiwoo";-353,362245938184
+"RedTeamPlayerNS Lucy";506,103667153351
+"RedTeamPlayerNS vital";307,001217690693
+"RedTeamPlayerNT Aitlade";-978,73490270845
+"RedTeamPlayerOAE Mis";999,45914389073
+"RedTeamPlayerOAE svns";1154,62205713592
+"RedTeamPlayerOAE Yen";1381,91957984181
+"RedTeamPlayerODD Solorio";632,85890617837
+"RedTeamPlayerODD Vayzer";2538,5881729223
+"RedTeamPlayerOMGStarry";-66,2021330394005
+"RedTeamPlayerOSC Caner";365,19000501184
+"RedTeamPlayerOSC KNEZA";-1213,59098926815
+"RedTeamPlayerOUAT Sm0oZi";1571,74934012119
+"RedTeamPlayerPAIN TitaN";-89,4442479984677
+"RedTeamPlayerPK boLa";259,49541962419
+"RedTeamPlayerPK Naros";NA
+"RedTeamPlayerPLS Hub";-340,870718780441
+"RedTeamPlayerPXS Mihai";899,685029581042
+"RedTeamPlayerQTD Yuhi";-835,307913200203
+"RedTeamPlayerRATZ Beenie";-181,950281117383
+"RedTeamPlayerRATZ Buero";NA
+"RedTeamPlayerRATZ Soweto";196,505867291834
+"RedTeamPlayerRBT Coldraa";830,923050976066
+"RedTeamPlayerRBT Unkn0wn";1156,15099795898
+"RedTeamPlayerRC Samver";-1610,44260409095
+"RedTeamPlayerRED Brance";-111,726935245628
+"RedTeamPlayerRED Rabelo";-270,272627994516
+"RedTeamPlayerRFS CHECKFIDER";1474,26766459258
+"RedTeamPlayerRFS KABA";535,722872426004
+"RedTeamPlayerRG Nomi";591,69537113479
+"RedTeamPlayerRG Rhythm";1059,1214234479
+"RedTeamPlayerRGE Patrik";83,4647432671585
+"RedTeamPlayerRISE aikawa";-115,425180167111
+"RedTeamPlayerRNGJiaQi";22,0956061136427
+"RedTeamPlayerROSS Syzyfek";86,5758630043779
+"RedTeamPlayerRS Humzh";697,554534320793
+"RedTeamPlayerRS Nata";1236,26231306961
+"RedTeamPlayerSCCP Trigo";-44,9495794655229
+"RedTeamPlayerSDM Instinct";1023,1016806963
+"RedTeamPlayerSDM Nannini";1621,84696021586
+"RedTeamPlayerSDM Sully";NA
+"RedTeamPlayerSDM Zeypher";855,864300397083
+"RedTeamPlayerSG Yuhi";-1173,81842633907
+"RedTeamPlayerSGE Varry";272,87997160537
+"RedTeamPlayerSHG Marble";107,022523408765
+"RedTeamPlayerSIC Naitz";982,461209569447
+"RedTeamPlayerSK Keduii";98,3989902651604
+"RedTeamPlayerSK Rahel";470,943580569996
+"RedTeamPlayerSLY TakeSet";65,1379585273845
+"RedTeamPlayerSN Shogo";-484,622895030038
+"RedTeamPlayerSNSH Asza";1456,88262666917
+"RedTeamPlayerSPK Yuki ";286,885288693679
+"RedTeamPlayerSQG chico";-1055,96185535702
+"RedTeamPlayerSQG Sunleaf";240,972183088856
+"RedTeamPlayerSR Bvoy";100,889790536121
+"RedTeamPlayerST1 PeQReK";2496,25564356617
+"RedTeamPlayerSTAR Frexey";1788,55418075889
+"RedTeamPlayerSTAR Royeq";972,450437457848
+"RedTeamPlayerSTE Celo";-450,997973765123
+"RedTeamPlayerSUP BAO";134,109821056422
+"RedTeamPlayerSUP basei";494,675607038785
+"RedTeamPlayerSUP Cako";439,037168084335
+"RedTeamPlayerSUP Xavian";754,987554593715
+"RedTeamPlayerT1 Cypher";693,787217854656
+"RedTeamPlayerT1 Gumayusi";-519,636506520233
+"RedTeamPlayerT1 Guti";252,395270137675
+"RedTeamPlayerT1 Smash";-603,278213217268
+"RedTeamPlayerTES JackeyLove";97,1963804472699
+"RedTeamPlayerTESJackeyLove";-280,556647749653
+"RedTeamPlayerTF Puddin";739,982865157138
+"RedTeamPlayerTH Flakked";1,36642955913326
+"RedTeamPlayerTL Yeon";-17,2106518544351
+"RedTeamPlayerTLN Betty";14,935855229327
+"RedTeamPlayerTLNA Dotmm";-120,50117438132
+"RedTeamPlayerTNI Sirinox";10,8652209170364
+"RedTeamPlayerTOG Vzz";-117,667668356147
+"RedTeamPlayerTP Axelent";1017,32657775057
+"RedTeamPlayerTPX Neramin";405,378934849413
+"RedTeamPlayerTPX Paparotis";811,442395777756
+"RedTeamPlayerTS Pain5";NA
+"RedTeamPlayerTSC Yakkey";108,348063823138
+"RedTeamPlayerTSW Eddie";549,876590590342
+"RedTeamPlayerTT1xn";-334,895388258816
+"RedTeamPlayerUCAM ANDARIEL";624,732410251508
+"RedTeamPlayerULF GRAVE";-8,54390958108876
+"RedTeamPlayerUNIT Daksider";-791,067006208805
+"RedTeamPlayerUNIT Notiko";-1599,78851060926
+"RedTeamPlayerUPWako";-365,889427695558
+"RedTeamPlayerUSE DenVoksne";292,840184999398
+"RedTeamPlayerUW Zewih";1873,72770079859
+"RedTeamPlayerV3 ezman";-894,798605386063
+"RedTeamPlayerVEL tetu";62,7491952242875
+"RedTeamPlayerVER Mishi";632,513637234575
+"RedTeamPlayerVER Shiganari";743,621890378451
+"RedTeamPlayerVIT Carzzy";-447,025982845536
+"RedTeamPlayerVITB Jopa";477,426907546917
+"RedTeamPlayerVKS Morttheus";176,104956104607
+"RedTeamPlayerVKS Smiley";NA
+"RedTeamPlayerVLY rakii";-795,554676800798
+"RedTeamPlayerVNC Kobbe";767,163349126454
+"RedTeamPlayerVNC Mauki";1196,49699598661
+"RedTeamPlayerVVV Rayito";1200,59229032076
+"RedTeamPlayerWAP Strensh";NA
+"RedTeamPlayerWBGLight";-575,672176652355
+"RedTeamPlayerWD BOOSHI";923,364642244688
+"RedTeamPlayerWETaeyoon";NA
+"RedTeamPlayerWIN chico";-201,258649673675
+"RedTeamPlayerWLG MrPhant0m";882,499832261886
+"RedTeamPlayerWLG Rafitta";-522,998104001645
+"RedTeamPlayerWLG Ralf";541,257560446904
+"RedTeamPlayerWP chillguys";-526,935445317356
+"RedTeamPlayerWT ChiCh1";NA
+"RedTeamPlayerWU Mobility";NA
+"RedTeamPlayerYYG hourosummer";-835,191201496644
+"RedTeamPlayerYYG NaiNa";NA
+"RedTeamPlayerZ10 Huubiii";1143,71624435117
+"RedTeamPlayerZ10 Woolite";765,591792162207
+"RedTeamPlayerZ5 Dya";NA
+"RedTeamPlayerZENA Carros 2";1617,43115016167
+"RedTeamPlayerZENA MKR";1599,38211633687
+"RedTeamPlayerZNT Afriibi";1207,3476557219
+"RedTeamPlayerZTA Adryh";2401,08062649403
+"RedTeamPlayerZTA Mauki";2072,63153188653
+"RedTeamPlayerZZG Oceann";NA
