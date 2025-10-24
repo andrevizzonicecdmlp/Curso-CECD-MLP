@@ -1,0 +1,105 @@
+---
+title: "Script 5 - Dados de campeões"
+author: "André Vizzoni"
+date: "2025-05-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Preâmbulo
+
+Pacote necessário.
+
+```{r preambulo}
+library(tidyverse)
+```
+
+# Leitura dos dados
+
+Vamos ler o conjunto de dados que criamos no script 4.
+
+```{r dados}
+dados <- read.csv2(
+  "Script 4 - Dados no formato desejado.csv",
+  colClasses = c(
+    "GameID" = "character",
+    "RedTeamID" = "character",
+    "BlueTeamID" = "character"
+  )
+)[-1]
+```
+
+# Estatísticas dos campeões
+
+Agora vamos calcular as estatísticas para cada campeão dentro de cada confronto, ou seja, nada mais do que suas médias para cada estatística, levando em conta o lado em que estão e quem é seu adversário.
+
+```{r estatisticas}
+estatisticas_por_confronto <- dados |> 
+  group_by(Role, BlueTeamChampion, RedTeamChampion) |> 
+  summarise(
+    games_played = n(),
+    blue_side_kills = mean(BlueTeamKills),
+    blue_side_deaths = mean(BlueTeamDeaths),
+    blue_side_assists = mean(BlueTeamAssists),
+    blue_side_cs_at_15_min = mean(BlueTeamCSAt15Min),
+    blue_side_cs_at_end = mean(BlueTeamCSAtEnd),
+    blue_side_gold_at_15_min = mean(BlueTeamGoldAt15Min),
+    blue_side_gold_at_end = mean(BlueTeamGoldAtEnd),
+    red_side_kills = mean(RedTeamKills),
+    red_side_deaths = mean(RedTeamDeaths),
+    red_side_assists = mean(RedTeamAssists),
+    red_side_cs_at_15_min = mean(RedTeamCSAt15Min),
+    red_side_cs_at_end = mean(RedTeamCSAtEnd),
+    red_side_gold_at_15_min = mean(RedTeamGoldAt15Min),
+    red_side_gold_at_end = mean(RedTeamGoldAtEnd)
+  )
+vantagens_do_lado_azul <- estatisticas_por_confronto[, c( 5 : 11)] - estatisticas_por_confronto[, c( 12 : 18)]
+colnames(vantagens_do_lado_azul) <- paste0(
+  colnames(vantagens_do_lado_azul),
+  "_advantage"
+)
+estatisticas_por_confronto <- cbind(
+  estatisticas_por_confronto,
+  vantagens_do_lado_azul
+)
+write.csv2(estatisticas_por_confronto,
+           file = "Script 5 - Estatísticas de cada campeão para cada confronto em 2025.csv")
+estatisticas_por_confronto
+```
+Agora, vamos complicar a situação, olhando para as mesmas estatísticas, só que por patch.
+```{r estatisticas_2}
+estatisticas_por_confronto_e_patch <- dados |> 
+  group_by(Role, BlueTeamChampion, RedTeamChampion, PatchVersion) |> 
+  summarise(
+    games_played = n(),
+    blue_side_kills = mean(BlueTeamKills),
+    blue_side_deaths = mean(BlueTeamDeaths),
+    blue_side_assists = mean(BlueTeamAssists),
+    blue_side_cs_at_15_min = mean(BlueTeamCSAt15Min),
+    blue_side_cs_at_end = mean(BlueTeamCSAtEnd),
+    blue_side_gold_at_15_min = mean(BlueTeamGoldAt15Min),
+    blue_side_gold_at_end = mean(BlueTeamGoldAtEnd),
+    red_side_kills = mean(RedTeamKills),
+    red_side_deaths = mean(RedTeamDeaths),
+    red_side_assists = mean(RedTeamAssists),
+    red_side_cs_at_15_min = mean(RedTeamCSAt15Min),
+    red_side_cs_at_end = mean(RedTeamCSAtEnd),
+    red_side_gold_at_15_min = mean(RedTeamGoldAt15Min),
+    red_side_gold_at_end = mean(RedTeamGoldAtEnd)
+  )
+vantagens_do_lado_azul <- estatisticas_por_confronto_e_patch[, c( 6 : 12)] - estatisticas_por_confronto_e_patch[, c( 13 : 19)]
+colnames(vantagens_do_lado_azul) <- paste0(
+  colnames(vantagens_do_lado_azul),
+  "_advantage"
+)
+estatisticas_por_confronto_e_patch <- cbind(
+  estatisticas_por_confronto_e_patch,
+  vantagens_do_lado_azul
+)
+write.csv2(estatisticas_por_confronto_e_patch,
+           file = "Script 5 - Estatísticas de cada campeão para cada confronto em 2025 divididas por patch.csv")
+estatisticas_por_confronto_e_patch
+```

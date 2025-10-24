@@ -1,0 +1,945 @@
+---
+title: "Script 10 - Dados dos modelos com campeões e jogadores como variáveis explicativas para a LCK"
+author: "André Vizzoni"
+date: "2025-05-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Preâmbulo
+
+Pacote necessário.
+
+```{r preambulo}
+library(tidyverse)
+```
+
+# Leitura dos dados
+
+Vamos ler o conjunto de dados que criamos no script 4, e depois vamos separar apenas os dados da LCK.
+
+```{r dados}
+dados <- read.csv2(
+  "Script 4 - Dados no formato desejado.csv",
+  colClasses = c(
+    "GameID" = "character",
+    "RedTeamID" = "character",
+    "BlueTeamID" = "character"
+  )
+)[-1]
+liga <- "LCK"
+dados_da_liga <- dados[which(dados$League == liga),]
+```
+
+# Campeões
+
+Agora, vamos coletar os dados de campeões.
+```{r campeoes}
+dados_de_campeoes_no_lado_azul <- dados_da_liga |> 
+  group_by(BlueTeamChampion, Role) |> 
+  summarise(
+    Games_played = n(),
+    Kills = mean(BlueTeamKills),
+    Deaths = mean(BlueTeamDeaths),
+    Assists = mean(BlueTeamAssists),
+    CS_at_15_min = mean(BlueTeamCSAt15Min),
+    CS_at_end = mean(BlueTeamCSAtEnd),
+    Gold_at_15_min = mean(BlueTeamGoldAt15Min),
+    Gold_at_end = mean(BlueTeamGoldAtEnd)
+  )
+dados_de_campeoes_no_lado_azul$Side <- "Blue"
+colnames(dados_de_campeoes_no_lado_azul)[1] <- "Champion"
+dados_de_campeoes_no_lado_vermelho <- dados_da_liga |> 
+  group_by(RedTeamChampion, Role) |> 
+  summarise(
+    Games_played = n(),
+    Kills = mean(RedTeamKills),
+    Deaths = mean(RedTeamDeaths),
+    Assists = mean(RedTeamAssists),
+    CS_at_15_min = mean(RedTeamCSAt15Min),
+    CS_at_end = mean(RedTeamCSAtEnd),
+    Gold_at_15_min = mean(RedTeamGoldAt15Min),
+    Gold_at_end = mean(RedTeamGoldAtEnd)
+  )
+dados_de_campeoes_no_lado_vermelho$Side <- "Red"
+colnames(dados_de_campeoes_no_lado_vermelho)[1] <- "Champion"
+dados_de_campeoes_juntando_os_lados <- dados_de_campeoes_no_lado_azul |> merge(
+  dados_de_campeoes_no_lado_vermelho,
+  by = c("Champion", "Role"),
+  all = T
+)
+dados_de_campeoes <- rbind(
+  dados_de_campeoes_no_lado_azul,
+  dados_de_campeoes_no_lado_vermelho
+)
+write.csv2(
+  dados_de_campeoes,
+  file = paste0(
+    "Script 10 - Dados de campeões da liga ",
+    liga,
+    ".csv"
+  )
+)
+```
+
+# Jogadores
+Agora vamos fazer o mesmo para os jogadores
+```{r jogadores}
+dados_de_jogadores_no_lado_azul <- dados_da_liga |> 
+  group_by(BlueTeamPlayer, Role) |> 
+  summarise(
+    Games_played = n(),
+    Kills = mean(BlueTeamKills),
+    Deaths = mean(BlueTeamDeaths),
+    Assists = mean(BlueTeamAssists),
+    CS_at_15_min = mean(BlueTeamCSAt15Min),
+    CS_at_end = mean(BlueTeamCSAtEnd),
+    Gold_at_15_min = mean(BlueTeamGoldAt15Min),
+    Gold_at_end = mean(BlueTeamGoldAtEnd)
+  )
+dados_de_jogadores_no_lado_azul$Side <- "Blue"
+colnames(dados_de_jogadores_no_lado_azul)[1] <- "Player"
+dados_de_jogadores_no_lado_vermelho <- dados_da_liga |> 
+  group_by(RedTeamPlayer, Role) |> 
+  summarise(
+    Games_played = n(),
+    Kills = mean(RedTeamKills),
+    Deaths = mean(RedTeamDeaths),
+    Assists = mean(RedTeamAssists),
+    CS_at_15_min = mean(RedTeamCSAt15Min),
+    CS_at_end = mean(RedTeamCSAtEnd),
+    Gold_at_15_min = mean(RedTeamGoldAt15Min),
+    Gold_at_end = mean(RedTeamGoldAtEnd)
+  )
+dados_de_jogadores_no_lado_vermelho$Side <- "Red"
+colnames(dados_de_jogadores_no_lado_vermelho)[1] <- "Player"
+dados_de_jogadores <- rbind(
+  dados_de_jogadores_no_lado_azul,
+  dados_de_jogadores_no_lado_vermelho
+)
+write.csv2(
+  dados_de_jogadores,
+  file = paste0(
+    "Script 10 - Dados de jogadores da liga ",
+    liga,
+    ".csv"
+  )
+)
+```
+# Modelos
+
+Finalmente, podemos criar os modelos para estimar as forças de cada jogador e cada campeão.
+```{r modelos}
+modelo_de_abates_para_top <- lm(
+  (BlueTeamKills - RedTeamKills) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "top"),]
+)
+abates_top <- modelo_de_abates_para_top$coefficients
+modelo_de_abates_para_jungle <- lm(
+  (BlueTeamKills - RedTeamKills) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "jungle"),]
+)
+abates_jungle <- modelo_de_abates_para_jungle$coefficients
+modelo_de_abates_para_mid <- lm(
+  (BlueTeamKills - RedTeamKills) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "mid"),]
+)
+abates_mid <- modelo_de_abates_para_mid$coefficients
+modelo_de_abates_para_bottom <- lm(
+  (BlueTeamKills - RedTeamKills) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "bottom"),]
+)
+abates_bottom <- modelo_de_abates_para_bottom$coefficients
+modelo_de_abates_para_support <- lm(
+  (BlueTeamKills - RedTeamKills) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "support"),]
+)
+abates_support <- modelo_de_abates_para_support$coefficients
+modelo_de_mortes_para_top <- lm(
+  (BlueTeamDeaths - RedTeamDeaths) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "top"),]
+)
+mortes_top <- modelo_de_mortes_para_top$coefficients
+modelo_de_mortes_para_jungle <- lm(
+  (BlueTeamDeaths - RedTeamDeaths) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "jungle"),]
+)
+mortes_jungle <- modelo_de_mortes_para_jungle$coefficients
+modelo_de_mortes_para_mid <- lm(
+  (BlueTeamDeaths - RedTeamDeaths) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "mid"),]
+)
+mortes_mid <- modelo_de_mortes_para_mid$coefficients
+modelo_de_mortes_para_bottom <- lm(
+  (BlueTeamDeaths - RedTeamDeaths) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "bottom"),]
+)
+mortes_bottom <- modelo_de_mortes_para_bottom$coefficients
+modelo_de_mortes_para_support <- lm(
+  (BlueTeamDeaths - RedTeamDeaths) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "support"),]
+)
+mortes_support <- modelo_de_mortes_para_support$coefficients
+modelo_de_assistencias_para_top <- lm(
+  (BlueTeamAssists - RedTeamAssists) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "top"),]
+)
+assistencias_top <- modelo_de_assistencias_para_top$coefficients
+modelo_de_assistencias_para_jungle <- lm(
+  (BlueTeamAssists - RedTeamAssists) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "jungle"),]
+)
+assistencias_jungle <- modelo_de_assistencias_para_jungle$coefficients
+modelo_de_assistencias_para_mid <- lm(
+  (BlueTeamAssists - RedTeamAssists) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "mid"),]
+)
+assistencias_mid <- modelo_de_assistencias_para_mid$coefficients
+modelo_de_assistencias_para_bottom <- lm(
+  (BlueTeamAssists - RedTeamAssists) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "bottom"),]
+)
+assistencias_bottom <- modelo_de_assistencias_para_bottom$coefficients
+modelo_de_assistencias_para_support <- lm(
+  (BlueTeamAssists - RedTeamAssists) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "support"),]
+)
+assistencias_support <- modelo_de_assistencias_para_support$coefficients
+modelo_de_CSAt15Min_para_top <- lm(
+  (BlueTeamCSAt15Min - RedTeamCSAt15Min) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "top"),]
+)
+CSAt15Min_top <- modelo_de_CSAt15Min_para_top$coefficients
+modelo_de_CSAt15Min_para_jungle <- lm(
+  (BlueTeamCSAt15Min - RedTeamCSAt15Min) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "jungle"),]
+)
+CSAt15Min_jungle <- modelo_de_CSAt15Min_para_jungle$coefficients
+modelo_de_CSAt15Min_para_mid <- lm(
+  (BlueTeamCSAt15Min - RedTeamCSAt15Min) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "mid"),]
+)
+CSAt15Min_mid <- modelo_de_CSAt15Min_para_mid$coefficients
+modelo_de_CSAt15Min_para_bottom <- lm(
+  (BlueTeamCSAt15Min - RedTeamCSAt15Min) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "bottom"),]
+)
+CSAt15Min_bottom <- modelo_de_CSAt15Min_para_bottom$coefficients
+modelo_de_CSAt15Min_para_support <- lm(
+  (BlueTeamCSAt15Min - RedTeamCSAt15Min) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "support"),]
+)
+CSAt15Min_support <- modelo_de_CSAt15Min_para_support$coefficients
+modelo_de_CSAtEnd_para_top <- lm(
+  (BlueTeamCSAtEnd - RedTeamCSAtEnd) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "top"),]
+)
+CSAtEnd_top <- modelo_de_CSAtEnd_para_top$coefficients
+modelo_de_CSAtEnd_para_jungle <- lm(
+  (BlueTeamCSAtEnd - RedTeamCSAtEnd) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "jungle"),]
+)
+CSAtEnd_jungle <- modelo_de_CSAtEnd_para_jungle$coefficients
+modelo_de_CSAtEnd_para_mid <- lm(
+  (BlueTeamCSAtEnd - RedTeamCSAtEnd) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "mid"),]
+)
+CSAtEnd_mid <- modelo_de_CSAtEnd_para_mid$coefficients
+modelo_de_CSAtEnd_para_bottom <- lm(
+  (BlueTeamCSAtEnd - RedTeamCSAtEnd) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "bottom"),]
+)
+CSAtEnd_bottom <- modelo_de_CSAtEnd_para_bottom$coefficients
+modelo_de_CSAtEnd_para_support <- lm(
+  (BlueTeamCSAtEnd - RedTeamCSAtEnd) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "support"),]
+)
+CSAtEnd_support <- modelo_de_CSAtEnd_para_support$coefficients
+modelo_de_GoldAt15Min_para_top <- lm(
+  (BlueTeamGoldAt15Min - RedTeamGoldAt15Min) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "top"),]
+)
+GoldAt15Min_top <- modelo_de_GoldAt15Min_para_top$coefficients
+modelo_de_GoldAt15Min_para_jungle <- lm(
+  (BlueTeamGoldAt15Min - RedTeamGoldAt15Min) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "jungle"),]
+)
+GoldAt15Min_jungle <- modelo_de_GoldAt15Min_para_jungle$coefficients
+modelo_de_GoldAt15Min_para_mid <- lm(
+  (BlueTeamGoldAt15Min - RedTeamGoldAt15Min) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "mid"),]
+)
+GoldAt15Min_mid <- modelo_de_GoldAt15Min_para_mid$coefficients
+modelo_de_GoldAt15Min_para_bottom <- lm(
+  (BlueTeamGoldAt15Min - RedTeamGoldAt15Min) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "bottom"),]
+)
+GoldAt15Min_bottom <- modelo_de_GoldAt15Min_para_bottom$coefficients
+modelo_de_GoldAt15Min_para_support <- lm(
+  (BlueTeamGoldAt15Min - RedTeamGoldAt15Min) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "support"),]
+)
+GoldAt15Min_support <- modelo_de_GoldAt15Min_para_support$coefficients
+modelo_de_GoldAtEnd_para_top <- lm(
+  (BlueTeamGoldAtEnd - RedTeamGoldAtEnd) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "top"),]
+)
+GoldAtEnd_top <- modelo_de_GoldAtEnd_para_top$coefficients
+modelo_de_GoldAtEnd_para_jungle <- lm(
+  (BlueTeamGoldAtEnd - RedTeamGoldAtEnd) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "jungle"),]
+)
+GoldAtEnd_jungle <- modelo_de_GoldAtEnd_para_jungle$coefficients
+modelo_de_GoldAtEnd_para_mid <- lm(
+  (BlueTeamGoldAtEnd - RedTeamGoldAtEnd) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "mid"),]
+)
+GoldAtEnd_mid <- modelo_de_GoldAtEnd_para_mid$coefficients
+modelo_de_GoldAtEnd_para_bottom <- lm(
+  (BlueTeamGoldAtEnd - RedTeamGoldAtEnd) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "bottom"),]
+)
+GoldAtEnd_bottom <- modelo_de_GoldAtEnd_para_bottom$coefficients
+modelo_de_GoldAtEnd_para_support <- lm(
+  (BlueTeamGoldAtEnd - RedTeamGoldAtEnd) ~ BlueTeamChampion + RedTeamChampion + BlueTeamPlayer + RedTeamPlayer,
+  data = dados_da_liga[which(dados_da_liga$Role == "support"),]
+)
+GoldAtEnd_support <- modelo_de_GoldAtEnd_para_support$coefficients
+```
+
+# Junção dos dados
+
+Como esperados, os arquivos dos mesmos papeis têm os mesmos tamanhos. Então, agora vamos começar a juntar tudo.
+```{r juncao_dos_dados}
+dados_de_top <- data.frame(
+  Kills = abates_top,
+  Deaths = mortes_top,
+  Assists = assistencias_top,
+  CSAt15Min = CSAt15Min_top,
+  CSAtEnd = CSAtEnd_top,
+  GoldAt15Min = GoldAt15Min_top,
+  GoldAtEnd = GoldAtEnd_top
+)
+dados_de_top$Parameter <- rownames(dados_de_top)
+dados_de_top$Role <- "top"
+dados_de_jungle <- data.frame(
+  Kills = abates_jungle,
+  Deaths = mortes_jungle,
+  Assists = assistencias_jungle,
+  CSAt15Min = CSAt15Min_jungle,
+  CSAtEnd = CSAtEnd_jungle,
+  GoldAt15Min = GoldAt15Min_jungle,
+  GoldAtEnd = GoldAtEnd_jungle
+)
+dados_de_jungle$Parameter <- rownames(dados_de_jungle)
+dados_de_jungle$Role <- "jungle"
+dados_de_mid <- data.frame(
+  Kills = abates_mid,
+  Deaths = mortes_mid,
+  Assists = assistencias_mid,
+  CSAt15Min = CSAt15Min_mid,
+  CSAtEnd = CSAtEnd_mid,
+  GoldAt15Min = GoldAt15Min_mid,
+  GoldAtEnd = GoldAtEnd_mid
+)
+dados_de_mid$Parameter <- rownames(dados_de_mid)
+dados_de_mid$Role <- "mid"
+dados_de_bottom <- data.frame(
+  Kills = abates_bottom,
+  Deaths = mortes_bottom,
+  Assists = assistencias_bottom,
+  CSAt15Min = CSAt15Min_bottom,
+  CSAtEnd = CSAtEnd_bottom,
+  GoldAt15Min = GoldAt15Min_bottom,
+  GoldAtEnd = GoldAtEnd_bottom
+)
+dados_de_bottom$Parameter <- rownames(dados_de_bottom)
+dados_de_bottom$Role <- "bottom"
+dados_de_support <- data.frame(
+  Kills = abates_support,
+  Deaths = mortes_support,
+  Assists = assistencias_support,
+  CSAt15Min = CSAt15Min_support,
+  CSAtEnd = CSAtEnd_support,
+  GoldAt15Min = GoldAt15Min_support,
+  GoldAtEnd = GoldAtEnd_support
+)
+dados_de_support$Parameter <- rownames(dados_de_support)
+dados_de_support$Role <- "support"
+linha_de_referencia_top_azul_campeao <- c(
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  paste0(
+    "BlueTeamChampion",
+    sort(
+      unique(
+        dados_da_liga[
+          which(
+            dados_da_liga$Role == "top"
+          ),
+        ]$BlueTeamChampion
+      )
+    )[1]
+  ),
+  "top"
+)
+linha_de_referencia_top_vermelho_campeao <- c(
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  paste0(
+    "RedTeamChampion",
+    sort(
+      unique(
+        dados_da_liga[
+          which(
+            dados_da_liga$Role == "top"
+          ),
+        ]$RedTeamChampion
+      )
+    )[1]
+  ),
+  "top"
+)
+linha_de_referencia_top_azul_jogador <- c(
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  paste0(
+    "BlueTeamPlayer",
+    sort(
+      unique(
+        dados_da_liga[
+          which(
+            dados_da_liga$Role == "top"
+          ),
+        ]$BlueTeamPlayer
+      )
+    )[1]
+  ),
+  "top"
+)
+linha_de_referencia_top_vermelho_jogador <- c(
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  paste0(
+    "RedTeamPlayer",
+    sort(
+      unique(
+        dados_da_liga[
+          which(
+            dados_da_liga$Role == "top"
+          ),
+        ]$RedTeamPlayer
+      )
+    )[1]
+  ),
+  "top"
+)
+dados_de_top <- rbind(
+  dados_de_top,
+  linha_de_referencia_top_azul_campeao,
+  linha_de_referencia_top_vermelho_campeao,
+  linha_de_referencia_top_azul_jogador,
+  linha_de_referencia_top_vermelho_jogador
+)
+linha_de_referencia_jungle_azul_campeao <- c(
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  paste0(
+    "BlueTeamChampion",
+    sort(
+      unique(
+        dados_da_liga[
+          which(
+            dados_da_liga$Role == "jungle"
+          ),
+        ]$BlueTeamChampion
+      )
+    )[1]
+  ),
+  "jungle"
+)
+linha_de_referencia_jungle_vermelho_campeao <- c(
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  paste0(
+    "RedTeamChampion",
+    sort(
+      unique(
+        dados_da_liga[
+          which(
+            dados_da_liga$Role == "jungle"
+          ),
+        ]$RedTeamChampion
+      )
+    )[1]
+  ),
+  "jungle"
+)
+linha_de_referencia_jungle_azul_jogador <- c(
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  paste0(
+    "BlueTeamPlayer",
+    sort(
+      unique(
+        dados_da_liga[
+          which(
+            dados_da_liga$Role == "jungle"
+          ),
+        ]$BlueTeamPlayer
+      )
+    )[1]
+  ),
+  "jungle"
+)
+linha_de_referencia_jungle_vermelho_jogador <- c(
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  paste0(
+    "RedTeamPlayer",
+    sort(
+      unique(
+        dados_da_liga[
+          which(
+            dados_da_liga$Role == "jungle"
+          ),
+        ]$RedTeamPlayer
+      )
+    )[1]
+  ),
+  "jungle"
+)
+dados_de_jungle <- rbind(
+  dados_de_jungle,
+  linha_de_referencia_jungle_azul_campeao,
+  linha_de_referencia_jungle_vermelho_campeao,
+  linha_de_referencia_jungle_azul_jogador,
+  linha_de_referencia_jungle_vermelho_jogador
+)
+linha_de_referencia_mid_azul_campeao <- c(
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  paste0(
+    "BlueTeamChampion",
+    sort(
+      unique(
+        dados_da_liga[
+          which(
+            dados_da_liga$Role == "mid"
+          ),
+        ]$BlueTeamChampion
+      )
+    )[1]
+  ),
+  "mid"
+)
+linha_de_referencia_mid_vermelho_campeao <- c(
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  paste0(
+    "RedTeamChampion",
+    sort(
+      unique(
+        dados_da_liga[
+          which(
+            dados_da_liga$Role == "mid"
+          ),
+        ]$RedTeamChampion
+      )
+    )[1]
+  ),
+  "mid"
+)
+linha_de_referencia_mid_azul_jogador <- c(
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  paste0(
+    "BlueTeamPlayer",
+    sort(
+      unique(
+        dados_da_liga[
+          which(
+            dados_da_liga$Role == "mid"
+          ),
+        ]$BlueTeamPlayer
+      )
+    )[1]
+  ),
+  "mid"
+)
+linha_de_referencia_mid_vermelho_jogador <- c(
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  paste0(
+    "RedTeamPlayer",
+    sort(
+      unique(
+        dados_da_liga[
+          which(
+            dados_da_liga$Role == "mid"
+          ),
+        ]$RedTeamPlayer
+      )
+    )[1]
+  ),
+  "mid"
+)
+dados_de_mid <- rbind(
+  dados_de_mid,
+  linha_de_referencia_mid_azul_campeao,
+  linha_de_referencia_mid_vermelho_campeao,
+  linha_de_referencia_mid_azul_jogador,
+  linha_de_referencia_mid_vermelho_jogador
+)
+linha_de_referencia_bottom_azul_campeao <- c(
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  paste0(
+    "BlueTeamChampion",
+    sort(
+      unique(
+        dados_da_liga[
+          which(
+            dados_da_liga$Role == "bottom"
+          ),
+        ]$BlueTeamChampion
+      )
+    )[1]
+  ),
+  "bottom"
+)
+linha_de_referencia_bottom_vermelho_campeao <- c(
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  paste0(
+    "RedTeamChampion",
+    sort(
+      unique(
+        dados_da_liga[
+          which(
+            dados_da_liga$Role == "bottom"
+          ),
+        ]$RedTeamChampion
+      )
+    )[1]
+  ),
+  "bottom"
+)
+linha_de_referencia_bottom_azul_jogador <- c(
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  paste0(
+    "BlueTeamPlayer",
+    sort(
+      unique(
+        dados_da_liga[
+          which(
+            dados_da_liga$Role == "bottom"
+          ),
+        ]$BlueTeamPlayer
+      )
+    )[1]
+  ),
+  "bottom"
+)
+linha_de_referencia_bottom_vermelho_jogador <- c(
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  paste0(
+    "RedTeamPlayer",
+    sort(
+      unique(
+        dados_da_liga[
+          which(
+            dados_da_liga$Role == "bottom"
+          ),
+        ]$RedTeamPlayer
+      )
+    )[1]
+  ),
+  "bottom"
+)
+dados_de_bottom <- rbind(
+  dados_de_bottom,
+  linha_de_referencia_bottom_azul_campeao,
+  linha_de_referencia_bottom_vermelho_campeao,
+  linha_de_referencia_bottom_azul_jogador,
+  linha_de_referencia_bottom_vermelho_jogador
+)
+linha_de_referencia_support_azul_campeao <- c(
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  paste0(
+    "BlueTeamChampion",
+    sort(
+      unique(
+        dados_da_liga[
+          which(
+            dados_da_liga$Role == "support"
+          ),
+        ]$BlueTeamChampion
+      )
+    )[1]
+  ),
+  "support"
+)
+linha_de_referencia_support_vermelho_campeao <- c(
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  paste0(
+    "RedTeamChampion",
+    sort(
+      unique(
+        dados_da_liga[
+          which(
+            dados_da_liga$Role == "support"
+          ),
+        ]$RedTeamChampion
+      )
+    )[1]
+  ),
+  "support"
+)
+linha_de_referencia_support_azul_jogador <- c(
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  paste0(
+    "BlueTeamPlayer",
+    sort(
+      unique(
+        dados_da_liga[
+          which(
+            dados_da_liga$Role == "support"
+          ),
+        ]$BlueTeamPlayer
+      )
+    )[1]
+  ),
+  "support"
+)
+linha_de_referencia_support_vermelho_jogador <- c(
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  paste0(
+    "RedTeamPlayer",
+    sort(
+      unique(
+        dados_da_liga[
+          which(
+            dados_da_liga$Role == "support"
+          ),
+        ]$RedTeamPlayer
+      )
+    )[1]
+  ),
+  "support"
+)
+dados_de_support <- rbind(
+  dados_de_support,
+  linha_de_referencia_support_azul_campeao,
+  linha_de_referencia_support_vermelho_campeao,
+  linha_de_referencia_support_azul_jogador,
+  linha_de_referencia_support_vermelho_jogador
+)
+dados_completos <- rbind(
+  dados_de_top,
+  dados_de_jungle,
+  dados_de_mid,
+  dados_de_bottom,
+  dados_de_support
+)
+dados_completos
+```
+
+
+Nossos resultados já estão bem legais assim, mas, vamos mudar algumas coisas para facilitar a interpretação. Como valores positivos nas estimativas significam vantagem do campeão do lado azul, quando o campeão está no lado vermelho, valores altamente positivos são ruins, enquanto o contrário vale no lado azul. Por isso, vamos tentar mudar isso, marcando em que lado cada campeão está e multiplicando por -1 os valores no lado vermelho. E vamos fazer isso quebrando os nomes dos parâmetros. Primeiro para separar o lado do resto. Depois para separar o tipo de parâmetro do nome do campeão/jogador.
+```{r dados_completos}
+dados_completos[, c("Side", "Parameter_type")] <- do.call(
+  rbind,
+  strsplit(
+    dados_completos$Parameter,
+    split = "Team"
+  )
+)
+linhas_em_que_o_parametro_e_de_um_campeao <- grepl(
+  pattern = "Champion",
+  x = dados_completos$Parameter_type
+)
+linhas_em_que_o_parametro_e_de_um_jogador <- grepl(
+  pattern = "Player",
+  x = dados_completos$Parameter_type
+)
+dados_completos$Parameter_2 <- dados_completos$Parameter_type
+dados_completos$Parameter_type[linhas_em_que_o_parametro_e_de_um_campeao] <- "Champion"
+dados_completos$Parameter_type[linhas_em_que_o_parametro_e_de_um_jogador] <- "Player"
+dados_completos$Parameter_2[linhas_em_que_o_parametro_e_de_um_campeao] <- gsub(
+  pattern = "Champion",
+  replacement = "",
+  x = dados_completos$Parameter_2[linhas_em_que_o_parametro_e_de_um_campeao]
+)
+dados_completos$Parameter_2[linhas_em_que_o_parametro_e_de_um_jogador] <- gsub(
+  pattern = "Player",
+  replacement = "",
+  x = dados_completos$Parameter_2[linhas_em_que_o_parametro_e_de_um_jogador]
+)
+dados_completos$Kills <- as.numeric(dados_completos$Kills)
+dados_completos$Deaths <- as.numeric(dados_completos$Deaths)
+dados_completos$Assists <- as.numeric(dados_completos$Assists)
+dados_completos$CSAt15Min <- as.numeric(dados_completos$CSAt15Min)
+dados_completos$CSAtEnd <- as.numeric(dados_completos$CSAtEnd)
+dados_completos$GoldAt15Min <- as.numeric(dados_completos$GoldAt15Min)
+dados_completos$GoldAtEnd <- as.numeric(dados_completos$GoldAtEnd)
+dados_completos$Kills[which(dados_completos$Side == "Red")] <- 
+  (-1)*dados_completos$Kills[which(dados_completos$Side == "Red")]
+dados_completos$Deaths[which(dados_completos$Side == "Red")] <- 
+  (-1)*dados_completos$Deaths[which(dados_completos$Side == "Red")]
+dados_completos$Assists[which(dados_completos$Side == "Red")] <- 
+  (-1)*dados_completos$Assists[which(dados_completos$Side == "Red")]
+dados_completos$CSAt15Min[which(dados_completos$Side == "Red")] <- 
+  (-1)*dados_completos$CSAt15Min[which(dados_completos$Side == "Red")]
+dados_completos$CSAtEnd[which(dados_completos$Side == "Red")] <- 
+  (-1)*dados_completos$CSAtEnd[which(dados_completos$Side == "Red")]
+dados_completos$GoldAt15Min[which(dados_completos$Side == "Red")] <- 
+  (-1)*dados_completos$GoldAt15Min[which(dados_completos$Side == "Red")]
+dados_completos$GoldAtEnd[which(dados_completos$Side == "Red")] <- 
+  (-1)*dados_completos$GoldAtEnd[which(dados_completos$Side == "Red")]
+dados_completos
+```
+Agora, só o que falta é incluir as estatísticas de cada jogador e de cada campeão.
+```{r dados_finais}
+dados_finais <- dados_completos[-8]
+colnames(dados_finais) <- c(
+  paste0(
+    colnames(dados_finais)[c(1 : 7)],
+    " above expected per game"
+  ),
+  "Role",
+  "Side",
+  "Parameter_type",
+  "Parameter"
+)
+colnames(dados_de_campeoes)[1] <- "Parameter"
+dados_de_campeoes$Parameter_type <- "Champion"
+colnames(dados_de_jogadores)[1] <- "Parameter"
+dados_de_jogadores$Parameter_type <- "Player"
+dados_brutos <- rbind(
+  dados_de_jogadores,
+  dados_de_campeoes
+)
+dados_finais <- dados_finais |> 
+  merge(dados_brutos,
+        by = c("Parameter", "Parameter_type", "Role", "Side"),
+        all.x = T
+        )
+write.csv2(
+  dados_finais,
+  file = paste0(
+    "Script 10 - Estimativas dos efeitos dos campeões e dos jogadores nos modelos simples na liga ",
+    liga,
+    ".csv"
+  )
+)
+```

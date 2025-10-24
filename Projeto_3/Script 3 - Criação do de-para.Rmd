@@ -1,0 +1,339 @@
+---
+title: "Script 3 - Criação do de-para"
+author: "André Vizzoni"
+date: "2025-05-10"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Preâmbulo
+
+Pacote necessário.
+
+```{r preambulo}
+library(tidyverse)
+```
+
+# Leitura dos dados
+
+Vamos ler o conjunto de dados que criamos no script 1, apenas com as linhas úteis.
+
+```{r dados}
+dados <- read.csv2(
+  "Script 1 - Dados sem linhas com problemas claros.csv",
+  colClasses = c(
+    "GameID" = "character",
+    "RedTeamID" = "character",
+    "BlueTeamID" = "character"
+  )
+)
+```
+
+# Estatísticas dos campeões
+
+Agora temos que começar a tentar levar em conta os confrontos de cada campeão, assim como de que lado jogaram. Para isso, precisamos cruzar as informações que temos: os ids dos times de cada lado e as abreviações de cada time. Assim, conseguiremos rapidamente marcar quem é o campeão do lado vermelho e quem é o campeão do lado azul.
+
+## Abreviações e nomes de times
+
+Vamos começar coletando os nomes dos times.
+```{r nomes}
+unique(dados$RedTeamName)
+```
+E agora as abreviações. Para isso, precisamos primeiro dos nomes dos jogadores.
+```{r abreviacoes}
+unique(dados$PlayerName)
+```
+Vemos que muitas das siglas de times estão separadas por espaços. Então, vamos atacar aí primeiro.
+
+```{r abreviacoes_2}
+strsplit(
+  x = unique(dados$PlayerName),
+  split = " "
+)
+```
+
+Esperamos não ter nenhum vetor dentro da lista acima com mais de 2 elementos, porque esperamos que nenhum nome de jogador tenha espaço dentro dele. Mas, vamos verificar.
+
+```{r abreviacoes_3}
+table(
+  unlist(
+    lapply(
+      strsplit(
+        x = unique(dados$PlayerName),
+        split = " "
+      ),
+      FUN = length
+    )
+  )
+)
+```
+Ok, vamos verificar o que está acontecendo nesses casos com 3 e 4 elementos.
+
+```{r abreviacoes_4}
+unique(dados$PlayerName)[
+  which(
+    unlist(
+      lapply(
+        strsplit(
+          x = unique(dados$PlayerName),
+          split = " "
+        ),
+        FUN = length
+      )
+    ) > 2
+  )
+]
+```
+
+Ok, todos os casos são de jogadores com espaço no nome. Fácil de lidar, então. Mais difícil de lidar é com os casos em que não há nenhum espaço no nome, porque isso significa que teremos que descobrir onde terminam as iniciais dos times e começam os nomes dos jogadores.
+```{r abreviacoes_5}
+sort(
+    unique(dados$PlayerName)[
+    which(
+      unlist(
+        lapply(
+          strsplit(
+            x = unique(dados$PlayerName),
+            split = " "
+          ),
+          FUN = length
+        )
+      ) == 1
+    )
+  ]
+)
+```
+Ok, então, todos os casos são da LPL, menos um: o do Mahonix. Com isso, podemos começar a pensar nos nossos próximos passos: criar uma tabela de de-para entre abreviações de times e seus nomes. Para isso, vamos criar uma lista das abreviações presentes nos nossos dados, extraindo a primeira coluna do data frame com todos os nomes separados com base nos espaços.
+```{r abreviacoes_6}
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores <- do.call(
+  rbind,
+  strsplit(
+    x = unique(dados$PlayerName),
+    split = " "
+  )
+)[,1]
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores <- sort(
+  unique(
+    abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores
+  )
+)
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores
+```
+Nosso próximo passo é substituir todos os nomes que não são abreviações pelas abreviações reais.
+```{r abreviacoes_7}
+linhas_dos_jogadores_sem_time <- c(
+  175,
+  204
+)
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores[
+  linhas_dos_jogadores_sem_time
+] <- "AL"
+linhas_dos_jogadores_da_AL <- c(
+  7 : 11
+)
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores[
+  linhas_dos_jogadores_da_AL
+] <- "AL"
+linhas_dos_jogadores_da_BLG <- c(
+  36 : 41
+)
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores[
+  linhas_dos_jogadores_da_BLG
+] <- "BLG"
+linhas_dos_jogadores_da_EDG <- c(
+  83 : 88
+)
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores[
+  linhas_dos_jogadores_da_EDG
+] <- "EDG"
+linhas_dos_jogadores_da_FPX <- c(
+  109 : 115
+)
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores[
+  linhas_dos_jogadores_da_FPX
+] <- "FPX"
+linhas_dos_jogadores_da_IG <- c(
+  150 : 154
+)
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores[
+  linhas_dos_jogadores_da_IG
+] <- "IG"
+linhas_dos_jogadores_da_JDG <- c(
+  159 : 163
+)
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores[
+  linhas_dos_jogadores_da_JDG
+] <- "JDG"
+linhas_dos_jogadores_da_LGD <- c(
+  181 : 186
+)
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores[
+  linhas_dos_jogadores_da_LGD
+] <- "LGD"
+linhas_dos_jogadores_da_LNG <- c(
+  188 : 195
+)
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores[
+  linhas_dos_jogadores_da_LNG
+] <- "LNG"
+linhas_dos_jogadores_da_NIP <- c(
+  223 : 227
+)
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores[
+  linhas_dos_jogadores_da_NIP
+] <- "NIP"
+linhas_dos_jogadores_da_OMG <- c(
+  233 : 239
+)
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores[
+  linhas_dos_jogadores_da_OMG
+] <- "OMG"
+linhas_dos_jogadores_da_RNG <- c(
+  255 : 260
+)
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores[
+  linhas_dos_jogadores_da_RNG
+] <- "RNG"
+linhas_dos_jogadores_da_TES <- c(
+  284 : 288
+)
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores[
+  linhas_dos_jogadores_da_TES
+] <- "TES"
+linhas_dos_jogadores_da_TT <- c(
+  302 : 307
+)
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores[
+  linhas_dos_jogadores_da_TT
+] <- "TT"
+linhas_dos_jogadores_da_UP <- c(
+  311 : 316
+)
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores[
+  linhas_dos_jogadores_da_UP
+] <- "UP"
+linhas_dos_jogadores_da_WBG <- c(
+  330 : 335
+)
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores[
+  linhas_dos_jogadores_da_WBG
+] <- "WBG"
+linhas_dos_jogadores_da_WE <- c(
+  337 : 342
+)
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores[
+  linhas_dos_jogadores_da_WE
+] <- "WE"
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores <- unique(
+  abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores
+)
+write.csv2(
+  abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores,
+  file = "Script 3 - Nomes abreviados dos times.csv"
+)
+abreviacoes_dos_nomes_de_times_mais_nomes_de_jogadores
+```
+
+Agora vamos criar nossa tabela de-para. Faremos isso combinando as abreviações com os times que mais aparecem perto de cada uma delas. Começando pelos casos em que a abreviação é separada por espaços. Vamos checar quantas vezes cada nome de time aparece para cada abreviação.
+```{r abreviacoes_8}
+abreviacoes_dos_nomes_de_times_mais_nomes_dos_times <- data.frame(
+  dados$RedTeamName,
+  dados$BlueTeamName,
+  do.call(
+    rbind,
+    strsplit(
+      dados$PlayerName,
+      split = " "
+    )
+  )
+)
+colnames(abreviacoes_dos_nomes_de_times_mais_nomes_dos_times) <- c(
+  "RedTeamName",
+  "BlueTeamName",
+  "Abbr_1",
+  "Abbr_2",
+  "Abbr_3",
+  "Abbr_4"
+)
+numeros_de_aparicoes_de_cada_abreviacao_por_nome <- abreviacoes_dos_nomes_de_times_mais_nomes_dos_times |> 
+  group_by(RedTeamName, Abbr_1) |> 
+  summarise(number_of_times_abbreviation_appeared = n())
+numeros_de_aparicoes_de_cada_abreviacao_por_nome
+```
+
+E agora vamos pegar a abreviação que mais aparece para cada nome de time e defini-la como a abreviação correta.
+```{r abreviacoes_9}
+numeros_de_aparicoes_de_cada_abreviacao_por_nome_maximos <- 
+  numeros_de_aparicoes_de_cada_abreviacao_por_nome |> 
+  group_by(RedTeamName) |> 
+  summarise(most_common_abbreviation_number_of_occurences = max(
+    number_of_times_abbreviation_appeared
+  ))
+abreviacoes_de_cada_time <- numeros_de_aparicoes_de_cada_abreviacao_por_nome_maximos |> 
+  merge(
+    numeros_de_aparicoes_de_cada_abreviacao_por_nome,
+    by.x = c(
+      "RedTeamName",
+      "most_common_abbreviation_number_of_occurences"
+    ),
+    by.y = c(
+      "RedTeamName",
+      "number_of_times_abbreviation_appeared"
+    )
+  )
+abreviacoes_de_cada_time
+```
+Além disso, como alguns times têm duas ou mais abreviações, vamos repetir todo o trabalho olhando para o nome de time mais comum para cada abreviação.
+```{r abreviacoes_10}
+numeros_de_aparicoes_de_cada_nome_por_abreviacao <- abreviacoes_dos_nomes_de_times_mais_nomes_dos_times |> 
+  group_by(Abbr_1, RedTeamName) |> 
+  summarise(number_of_times_name_appeared = n())
+numeros_de_aparicoes_de_cada_nome_por_abreviacao_maximos <- 
+  numeros_de_aparicoes_de_cada_nome_por_abreviacao |> 
+  group_by(Abbr_1) |> 
+  summarise(most_common_name_number_of_occurences = max(
+    number_of_times_name_appeared
+  ))
+nomes_de_cada_abreviacao <- numeros_de_aparicoes_de_cada_nome_por_abreviacao_maximos |> 
+  merge(
+    numeros_de_aparicoes_de_cada_nome_por_abreviacao,
+    by.x = c(
+      "Abbr_1",
+      "most_common_name_number_of_occurences"
+    ),
+    by.y = c(
+      "Abbr_1",
+      "number_of_times_name_appeared"
+    )
+  )
+nomes_de_cada_abreviacao
+```
+Agora vamos juntar essas informações no Excel, validar tudo e montar um de-para.
+```{r abreviacoes_11}
+write.csv2(
+ abreviacoes_de_cada_time,
+ file = "Script 3 - Nomes abreviados mais comuns para cada time em 2025.csv"
+)
+write.csv2(
+ nomes_de_cada_abreviacao,
+ file = "Script 3 - Nomes mais comuns para cada nome abreviado de time em 2025.csv"
+)
+de_para <- read.csv2("De-para entre nomes de times e seus nomes abreviados.csv")
+de_para
+```
+Como podemos ver, nosso de-para não é um-para-um em nenhuma das direções. Ou seja, existem times com duas siglas e siglas que denotam dois times. Mas, isso não é um problema para nós, porque temos nos dados as informações necessárias para desfazer confusões.
+
+O que buscamos agora é organizar os dados para que fiquem com as seguintes colunas:
+
+- Id do jogo;
+- Ids dos times;
+- Nomes dos times;
+- Abreviações dos times;
+- Papel dos jogadores;
+- Jogadores de cada time;
+- Estatísticas de cada jogador.
+
+E, para fazer tudo isso, o de-para será fundamental. Mas, vamos deixar isso para o próximo script.

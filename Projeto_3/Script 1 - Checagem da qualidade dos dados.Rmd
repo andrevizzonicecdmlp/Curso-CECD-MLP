@@ -1,0 +1,324 @@
+---
+title: "Script 1 - Checagem da qualidade dos dados"
+author: "André Vizzoni"
+date: "2025-05-07"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Preâmbulo
+
+Pacote necessário.
+
+```{r preambulo}
+library(tidyverse)
+```
+
+# Leitura dos dados
+
+Primeiro, vamos ler os dados.
+
+```{r dados}
+dados <- read.csv(
+  "player_stats.csv",
+  colClasses = c(
+    "GameID" = "character",
+    "RedTeamID" = "character",
+    "BlueTeamID" = "character"
+  )
+)
+glimpse(dados)
+```
+
+E agora vamos fazer algumas checagens em cada coluna.
+
+## Coluna GameID
+
+```{r GameID}
+sort(table(dados$GameID), decreasing = TRUE)
+```
+Essa coluna parece estar como deveria, com 10 indivíduos por id.
+
+## Coluna RedTeamID
+```{r RedTeamID}
+sort(
+  table(dados$RedTeamID),
+  decreasing = T
+)
+```
+Essa também.
+
+## Coluna RedTeamName
+```{r RedTeamName}
+sort(
+  table(dados$RedTeamName),
+  decreasing = T
+)
+```
+
+## Colunas RedTeamID vs. RedTeamName
+```{r RedTeamID_vs._RedTeamName}
+sort(
+  table(
+    paste(
+      dados$RedTeamID,
+      dados$RedTeamName,
+      sep = " - "
+    )
+  )
+  ,
+  decreasing = T
+)
+```
+
+As diferenças entre as duas colunas de time vermelho são porque cada time recebe um id novo quando muda a competição. Presumo que o mesmo valha para os times azuis.
+
+## Coluna League
+```{r League}
+sort(
+  table(dados$League),
+  decreasing = T
+)
+```
+
+## Coluna Role
+```{r Role}
+sort(
+  table(dados$Role),
+  decreasing = T
+)
+```
+
+## Coluna ChampionID
+```{r ChampionID}
+sort(
+  table(dados$ChampionID),
+  decreasing = T
+)
+```
+
+## Coluna PlayerName
+```{r PlayerName}
+sort(
+  table(dados$PlayerName),
+  decreasing = T
+)
+```
+
+## Coluna PatchVersion
+```{r PatchVersion}
+sort(
+  table(dados$PatchVersion),
+  decreasing = T
+)
+```
+
+## Coluna Kills
+```{r Kills}
+hist(dados$Kills)
+```
+
+## Coluna Deaths
+```{r Deaths}
+hist(dados$Deaths)
+```
+
+## Colunas Kills vs. Deaths
+```{r Kills_vs._Deaths}
+sum(dados$Deaths) - sum(dados$Kills)
+```
+Esse é o número de abates que não tiveram responsabilidade de um jogador.
+
+## Coluna Assists
+```{r Assists}
+hist(dados$Assists)
+```
+
+## Colunas Kills vs. Assists
+```{r Kills_vs._Assists}
+sum(dados$Assists) / sum(dados$Deaths)
+```
+Esse é o número médio de assistências por abate.
+
+## Coluna OpposingChampionID
+```{r OpposingChampionID}
+sort(
+  table(dados$OpposingChampionID),
+  decreasing = T
+)
+```
+
+## Coluna OpposingPlayerName
+```{r OpposingPlayerName}
+sort(
+  table(dados$OpposingPlayerName),
+  decreasing = T
+)
+```
+
+## Coluna CSAt15Min
+```{r CSAt15Min}
+hist(dados$CSAt15Min)
+```
+E esse é um sumário dos dados em forma de tabela.
+```{r CSAt15Min_summary}
+summary(dados$CSAt15Min)
+```
+
+## Coluna CSAtEnd
+```{r CSAtEnd}
+hist(dados$CSAtEnd)
+```
+E esse é um sumário dos dados em forma de tabela.
+```{r CSAtEnd_summary}
+summary(dados$CSAtEnd)
+```
+
+## Colunas CSAt15Min vs. CSAtEnd
+```{r CSAt15Min_vs._CSAtEnd}
+hist(dados$CSAtEnd - dados$CSAt15Min)
+```
+E esse é um sumário dos dados em forma de tabela.
+```{r CSAt15Min_vs._CSAtEnd_summary}
+summary(dados$CSAtEnd - dados$CSAt15Min)
+```
+Finalmente, o número de casos em que a diferença de CS entre 15 minutos e fim do jogo é 0 ou negativa. Isso não deveria acontecer.
+```{r CSAt15Min_vs._CSAtEnd_negative_difference}
+sum((dados$CSAtEnd - dados$CSAt15Min) <= 0)
+```
+
+## Coluna GoldAt15Min
+```{r GoldAt15Min}
+hist(dados$GoldAt15Min)
+```
+E esse é um sumário dos dados em forma de tabela.
+```{r GoldAt15Min_summary}
+summary(dados$GoldAt15Min)
+```
+Agora, o mesmo histograma para um recorte mais específico.
+```{r GoldAt15Min_less_than_3500}
+hist(dados$GoldAt15Min[which(dados$GoldAt15Min < 3500)])
+```
+E esse é o número de casos em que o ouro em 15 minutos continua parado no 500.
+```{r GoldAt15Min_equals_500}
+sum((dados$GoldAt15Min) == 500)
+```
+
+## Coluna GoldAtEnd
+```{r GoldAtEnd}
+hist(dados$GoldAtEnd)
+```
+E esse é um sumário dos dados em forma de tabela.
+```{r GoldAtEnd_summary}
+summary(dados$GoldAtEnd)
+```
+Agora, o mesmo histograma para um recorte mais específico.
+```{r GoldAtEnd_less_than_5000}
+hist(dados$GoldAtEnd[which(dados$GoldAtEnd < 5000)])
+```
+E esse é o número de casos em que o ouro ao final continua parado no 500.
+```{r GoldAtEnd_equals_500}
+sum((dados$GoldAtEnd) == 500)
+```
+
+## Colunas GoldAt15Min vs. GoldAtEnd
+```{r GoldAt15Min_vs._GoldAtEnd}
+hist(dados$GoldAtEnd - dados$GoldAt15Min)
+```
+E esse é um sumário dos dados em forma de tabela.
+```{r GoldAt15Min_vs._GoldAtEnd_summary}
+summary(dados$GoldAtEnd - dados$GoldAt15Min)
+```
+Agora, o mesmo histograma para um recorte mais específico.
+```{r GoldAt15Min_vs._GoldAtEnd_less_than_5000}
+hist(
+  (dados$GoldAtEnd - dados$GoldAt15Min)[
+    which(dados$GoldAtEnd - dados$GoldAt15Min < 3500)
+  ]
+)
+```
+E esse é o número de casos em que a diferença de ouro entre 15 minutos e fim do jogo é 0 ou negativa. Isso não deveria acontecer.
+```{r GoldAt15Min_vs._GoldAtEnd_less_than_0}
+sum((dados$GoldAtEnd - dados$GoldAt15Min) <= 0)
+```
+
+# Checagem das linhas com dados inesperados
+Agora vamos começar a pensar em excluir as linhas problemáticas.
+```{r linhas}
+linhas_em_que_ouro_comecou_como_zero <- which(dados$GoldAt15Min == 0)
+linhas_em_que_ouro_terminou_como_zero <- which(dados$GoldAtEnd == 0)
+linhas_em_que_ouro_comecou_ou_terminou_como_zero <- which(
+  dados$GoldAt15Min == 0 |
+    dados$GoldAtEnd == 0
+)
+linhas_em_que_a_diferenca_de_CS_ao_final_do_jogo_foi_0_ou_negativa <- which(
+  dados$CSAtEnd - dados$CSAt15Min <= 0
+)
+linhas_em_que_a_diferenca_de_ouro_ao_final_do_jogo_foi_0_ou_negativa <- which(
+  dados$GoldAtEnd - dados$GoldAt15Min <= 0
+)
+linhas_em_que_ocorreu_qualquer_um_dos_4_problemas <- which(
+  dados$GoldAt15Min == 0 |
+    dados$GoldAtEnd == 0 |
+    dados$CSAtEnd - dados$CSAt15Min <= 0|
+    dados$GoldAtEnd - dados$GoldAt15Min <= 0
+)
+length(linhas_em_que_ocorreu_qualquer_um_dos_4_problemas)
+```
+Vamos excluir essas 1771 linhas que achamos que são problemáticas. E agora vamos refazer algumas checagens.
+
+## Coluna GameID
+```{r GameID_2}
+sort(
+  table(
+    dados[-linhas_em_que_ocorreu_qualquer_um_dos_4_problemas,]$GameID
+  ),
+  decreasing = FALSE
+)
+```
+
+Vemos que alguns jogos ficaram com menos de 10 observações. Talvez possamos manter apenas os dados desses jogos, se os valores esquisitos fizerem sentido
+```{r linhas_2}
+linhas_com_jogos_que_ficaram_com_dados_faltando <- dados[
+  which(
+    dados$GameID %in% (
+      names(which(
+        table(
+          dados[-linhas_em_que_ocorreu_qualquer_um_dos_4_problemas,]$GameID
+        ) <10
+      ))
+    )
+  ),
+]
+linhas_com_jogos_que_ficaram_com_dados_faltando
+```
+
+Podemos ver analisando esses jogos que eles foram injustamente punidos.Então, não vamos excluir as linhas referentes a eles.
+
+# Dados sem linhas problemáticas
+```{r linhas_3}
+'%!in%' <- function(x,y)!('%in%'(x,y))
+linhas_problematicas <- which(
+  (
+    dados$GoldAt15Min == 0 |
+      dados$GoldAtEnd == 0 |
+      dados$CSAtEnd - dados$CSAt15Min <= 0|
+      dados$GoldAtEnd - dados$GoldAt15Min <= 0
+  )
+  & dados$GameID %!in% (
+      names(which(
+        table(
+          dados[-linhas_em_que_ocorreu_qualquer_um_dos_4_problemas,]$GameID
+        ) <10
+      ))
+    )
+)
+write.csv2(
+  dados[-linhas_problematicas,],
+  file = "Script 1 - Dados sem linhas com problemas claros.csv"
+)
+```
+

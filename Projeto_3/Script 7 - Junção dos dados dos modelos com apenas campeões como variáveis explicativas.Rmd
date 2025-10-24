@@ -1,0 +1,511 @@
+---
+title: "Script 7 - Junção dos dados dos modelos com apenas campeões como variáveis explicativas"
+author: "André Vizzoni"
+date: "2025-05-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Preâmbulo
+
+Pacote necessário.
+
+```{r preambulo}
+library(tidyverse)
+```
+
+# Leitura dos dados
+
+Vamos ler o conjunto de dados que criamos no script 4.
+
+```{r dados}
+dados <- read.csv2(
+  "Script 4 - Dados no formato desejado.csv",
+  colClasses = c(
+    "GameID" = "character",
+    "RedTeamID" = "character",
+    "BlueTeamID" = "character"
+  )
+)[-1]
+```
+
+# Modelos de forças dos campeões
+
+E agora vamos ler os resultados dos modelos do script 6.
+```{r resultados_dos_modelos}
+abates_top <- read.csv2("Script 6 - Resultados do modelo para estimar numero de abates com base nos campeoes escolhidos no top.csv")
+abates_jungle <- read.csv2("Script 6 - Resultados do modelo para estimar numero de abates com base nos campeoes escolhidos no jungle.csv")
+abates_mid <- read.csv2("Script 6 - Resultados do modelo para estimar numero de abates com base nos campeoes escolhidos no mid.csv")
+abates_bottom <- read.csv2("Script 6 - Resultados do modelo para estimar numero de abates com base nos campeoes escolhidos no bottom.csv")
+abates_support <- read.csv2("Script 6 - Resultados do modelo para estimar numero de abates com base nos campeoes escolhidos no support.csv")
+mortes_top <- read.csv2("Script 6 - Resultados do modelo para estimar numero de mortes com base nos campeoes escolhidos no top.csv")
+mortes_jungle <- read.csv2("Script 6 - Resultados do modelo para estimar numero de mortes com base nos campeoes escolhidos no jungle.csv")
+mortes_mid <- read.csv2("Script 6 - Resultados do modelo para estimar numero de mortes com base nos campeoes escolhidos no mid.csv")
+mortes_bottom <- read.csv2("Script 6 - Resultados do modelo para estimar numero de mortes com base nos campeoes escolhidos no bottom.csv")
+mortes_support <- read.csv2("Script 6 - Resultados do modelo para estimar numero de mortes com base nos campeoes escolhidos no support.csv")
+assistencias_top <- read.csv2("Script 6 - Resultados do modelo para estimar numero de assistencias com base nos campeoes escolhidos no top.csv")
+assistencias_jungle <- read.csv2("Script 6 - Resultados do modelo para estimar numero de assistencias com base nos campeoes escolhidos no jungle.csv")
+assistencias_mid <- read.csv2("Script 6 - Resultados do modelo para estimar numero de assistencias com base nos campeoes escolhidos no mid.csv")
+assistencias_bottom <- read.csv2("Script 6 - Resultados do modelo para estimar numero de assistencias com base nos campeoes escolhidos no bottom.csv")
+assistencias_support <- read.csv2("Script 6 - Resultados do modelo para estimar numero de assistencias com base nos campeoes escolhidos no support.csv")
+CSAt15Min_top <- read.csv2("Script 6 - Resultados do modelo para estimar numero de CSAt15Min com base nos campeoes escolhidos no top.csv")
+CSAt15Min_jungle <- read.csv2("Script 6 - Resultados do modelo para estimar numero de CSAt15Min com base nos campeoes escolhidos no jungle.csv")
+CSAt15Min_mid <- read.csv2("Script 6 - Resultados do modelo para estimar numero de CSAt15Min com base nos campeoes escolhidos no mid.csv")
+CSAt15Min_bottom <- read.csv2("Script 6 - Resultados do modelo para estimar numero de CSAt15Min com base nos campeoes escolhidos no bottom.csv")
+CSAt15Min_support <- read.csv2("Script 6 - Resultados do modelo para estimar numero de CSAt15Min com base nos campeoes escolhidos no support.csv")
+CSAtEnd_top <- read.csv2("Script 6 - Resultados do modelo para estimar numero de CSAtEnd com base nos campeoes escolhidos no top.csv")
+CSAtEnd_jungle <- read.csv2("Script 6 - Resultados do modelo para estimar numero de CSAtEnd com base nos campeoes escolhidos no jungle.csv")
+CSAtEnd_mid <- read.csv2("Script 6 - Resultados do modelo para estimar numero de CSAtEnd com base nos campeoes escolhidos no mid.csv")
+CSAtEnd_bottom <- read.csv2("Script 6 - Resultados do modelo para estimar numero de CSAtEnd com base nos campeoes escolhidos no bottom.csv")
+CSAtEnd_support <- read.csv2("Script 6 - Resultados do modelo para estimar numero de CSAtEnd com base nos campeoes escolhidos no support.csv")
+GoldAt15Min_top <- read.csv2("Script 6 - Resultados do modelo para estimar numero de GoldAt15Min com base nos campeoes escolhidos no top.csv")
+GoldAt15Min_jungle <- read.csv2("Script 6 - Resultados do modelo para estimar numero de GoldAt15Min com base nos campeoes escolhidos no jungle.csv")
+GoldAt15Min_mid <- read.csv2("Script 6 - Resultados do modelo para estimar numero de GoldAt15Min com base nos campeoes escolhidos no mid.csv")
+GoldAt15Min_bottom <- read.csv2("Script 6 - Resultados do modelo para estimar numero de GoldAt15Min com base nos campeoes escolhidos no bottom.csv")
+GoldAt15Min_support <- read.csv2("Script 6 - Resultados do modelo para estimar numero de GoldAt15Min com base nos campeoes escolhidos no support.csv")
+GoldAtEnd_top <- read.csv2("Script 6 - Resultados do modelo para estimar numero de GoldAtEnd com base nos campeoes escolhidos no top.csv")
+GoldAtEnd_jungle <- read.csv2("Script 6 - Resultados do modelo para estimar numero de GoldAtEnd com base nos campeoes escolhidos no jungle.csv")
+GoldAtEnd_mid <- read.csv2("Script 6 - Resultados do modelo para estimar numero de GoldAtEnd com base nos campeoes escolhidos no mid.csv")
+GoldAtEnd_bottom <- read.csv2("Script 6 - Resultados do modelo para estimar numero de GoldAtEnd com base nos campeoes escolhidos no bottom.csv")
+GoldAtEnd_support <- read.csv2("Script 6 - Resultados do modelo para estimar numero de GoldAtEnd com base nos campeoes escolhidos no support.csv")
+```
+
+Como esperados, os arquivos dos mesmos papeis têm os mesmos tamanhos. Então, agora vamos começar a juntar tudo. Primeiro, pelos jogadores de top.
+```{r dados_top}
+colnames(abates_top)[2] <- "Kills"
+colnames(mortes_top)[2] <- "Deaths"
+colnames(assistencias_top)[2] <- "Assists"
+colnames(CSAt15Min_top)[2] <- "CSAt15Min"
+colnames(CSAtEnd_top)[2] <- "CSAtEnd"
+colnames(GoldAt15Min_top)[2] <- "GoldAt15Min"
+colnames(GoldAtEnd_top)[2] <- "GoldAtEnd"
+dados_de_top <- abates_top |> 
+  merge(mortes_top, by = c("X"))
+dados_de_top <- dados_de_top |> 
+  merge(assistencias_top, by = c("X"))
+dados_de_top <- dados_de_top |> 
+  merge(CSAt15Min_top, by = c("X"))
+dados_de_top <- dados_de_top |> 
+  merge(CSAtEnd_top, by = c("X"))
+dados_de_top <- dados_de_top |> 
+  merge(GoldAt15Min_top, by = c("X"))
+dados_de_top <- dados_de_top |> 
+  merge(GoldAtEnd_top, by = c("X"))
+dados_de_top$Role <- "top"
+```
+
+Agora, os junglers.
+```{r dados_jungle}
+colnames(abates_jungle)[2] <- "Kills"
+colnames(mortes_jungle)[2] <- "Deaths"
+colnames(assistencias_jungle)[2] <- "Assists"
+colnames(CSAt15Min_jungle)[2] <- "CSAt15Min"
+colnames(CSAtEnd_jungle)[2] <- "CSAtEnd"
+colnames(GoldAt15Min_jungle)[2] <- "GoldAt15Min"
+colnames(GoldAtEnd_jungle)[2] <- "GoldAtEnd"
+dados_de_jungle <- abates_jungle |> 
+  merge(mortes_jungle, by = c("X"))
+dados_de_jungle <- dados_de_jungle |> 
+  merge(assistencias_jungle, by = c("X"))
+dados_de_jungle <- dados_de_jungle |> 
+  merge(CSAt15Min_jungle, by = c("X"))
+dados_de_jungle <- dados_de_jungle |> 
+  merge(CSAtEnd_jungle, by = c("X"))
+dados_de_jungle <- dados_de_jungle |> 
+  merge(GoldAt15Min_jungle, by = c("X"))
+dados_de_jungle <- dados_de_jungle |> 
+  merge(GoldAtEnd_jungle, by = c("X"))
+dados_de_jungle$Role <- "jungle"
+```
+Agora os mids.
+```{r dados_mid}
+colnames(abates_mid)[2] <- "Kills"
+colnames(mortes_mid)[2] <- "Deaths"
+colnames(assistencias_mid)[2] <- "Assists"
+colnames(CSAt15Min_mid)[2] <- "CSAt15Min"
+colnames(CSAtEnd_mid)[2] <- "CSAtEnd"
+colnames(GoldAt15Min_mid)[2] <- "GoldAt15Min"
+colnames(GoldAtEnd_mid)[2] <- "GoldAtEnd"
+dados_de_mid <- abates_mid |> 
+  merge(mortes_mid, by = c("X"))
+dados_de_mid <- dados_de_mid |> 
+  merge(assistencias_mid, by = c("X"))
+dados_de_mid <- dados_de_mid |> 
+  merge(CSAt15Min_mid, by = c("X"))
+dados_de_mid <- dados_de_mid |> 
+  merge(CSAtEnd_mid, by = c("X"))
+dados_de_mid <- dados_de_mid |> 
+  merge(GoldAt15Min_mid, by = c("X"))
+dados_de_mid <- dados_de_mid |> 
+  merge(GoldAtEnd_mid, by = c("X"))
+dados_de_mid$Role <- "mid"
+```
+
+Agora, os atiradores.
+```{r dados_bottom}
+colnames(abates_bottom)[2] <- "Kills"
+colnames(mortes_bottom)[2] <- "Deaths"
+colnames(assistencias_bottom)[2] <- "Assists"
+colnames(CSAt15Min_bottom)[2] <- "CSAt15Min"
+colnames(CSAtEnd_bottom)[2] <- "CSAtEnd"
+colnames(GoldAt15Min_bottom)[2] <- "GoldAt15Min"
+colnames(GoldAtEnd_bottom)[2] <- "GoldAtEnd"
+dados_de_bottom <- abates_bottom |> 
+  merge(mortes_bottom, by = c("X"))
+dados_de_bottom <- dados_de_bottom |> 
+  merge(assistencias_bottom, by = c("X"))
+dados_de_bottom <- dados_de_bottom |> 
+  merge(CSAt15Min_bottom, by = c("X"))
+dados_de_bottom <- dados_de_bottom |> 
+  merge(CSAtEnd_bottom, by = c("X"))
+dados_de_bottom <- dados_de_bottom |> 
+  merge(GoldAt15Min_bottom, by = c("X"))
+dados_de_bottom <- dados_de_bottom |> 
+  merge(GoldAtEnd_bottom, by = c("X"))
+dados_de_bottom$Role <- "bottom"
+```
+
+Finalmente, os supports.
+```{r dados_support}
+colnames(abates_support)[2] <- "Kills"
+colnames(mortes_support)[2] <- "Deaths"
+colnames(assistencias_support)[2] <- "Assists"
+colnames(CSAt15Min_support)[2] <- "CSAt15Min"
+colnames(CSAtEnd_support)[2] <- "CSAtEnd"
+colnames(GoldAt15Min_support)[2] <- "GoldAt15Min"
+colnames(GoldAtEnd_support)[2] <- "GoldAtEnd"
+dados_de_support <- abates_support |> 
+  merge(mortes_support, by = c("X"))
+dados_de_support <- dados_de_support |> 
+  merge(assistencias_support, by = c("X"))
+dados_de_support <- dados_de_support |> 
+  merge(CSAt15Min_support, by = c("X"))
+dados_de_support <- dados_de_support |> 
+  merge(CSAtEnd_support, by = c("X"))
+dados_de_support <- dados_de_support |> 
+  merge(GoldAt15Min_support, by = c("X"))
+dados_de_support <- dados_de_support |> 
+  merge(GoldAtEnd_support, by = c("X"))
+dados_de_support$Role <- "support"
+```
+
+O que temos que fazer agora é juntar todos os dados e adicionar as linhas das categorias de referência de cada papel.
+
+```{r dados_completos}
+linha_de_referencia_top_azul <- c(
+  paste0(
+    "BlueTeamChampion",
+    sort(
+      unique(
+        dados[
+          which(
+            dados$Role == "top"
+          ),
+        ]$BlueTeamChampion
+      )
+    )[1]
+  ),
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  "top"
+)
+linha_de_referencia_top_vermelho <- c(
+  paste0(
+    "RedTeamChampion",
+    sort(
+      unique(
+        dados[
+          which(
+            dados$Role == "top"
+          ),
+        ]$RedTeamChampion
+      )
+    )[1]
+  ),
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  "top"
+)
+dados_de_top <- rbind(
+  dados_de_top,
+  linha_de_referencia_top_azul,
+  linha_de_referencia_top_vermelho
+)
+linha_de_referencia_jungle_azul <- c(
+  paste0(
+    "BlueTeamChampion",
+    sort(
+      unique(
+        dados[
+          which(
+            dados$Role == "jungle"
+          ),
+        ]$BlueTeamChampion
+      )
+    )[1]
+  ),
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  "jungle"
+)
+linha_de_referencia_jungle_vermelho <- c(
+  paste0(
+    "RedTeamChampion",
+    sort(
+      unique(
+        dados[
+          which(
+            dados$Role == "jungle"
+          ),
+        ]$RedTeamChampion
+      )
+    )[1]
+  ),
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  "jungle"
+)
+dados_de_jungle <- rbind(
+  dados_de_jungle,
+  linha_de_referencia_jungle_azul,
+  linha_de_referencia_jungle_vermelho
+)
+linha_de_referencia_mid_azul <- c(
+  paste0(
+    "BlueTeamChampion",
+    sort(
+      unique(
+        dados[
+          which(
+            dados$Role == "mid"
+          ),
+        ]$BlueTeamChampion
+      )
+    )[1]
+  ),
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  "mid"
+)
+linha_de_referencia_mid_vermelho <- c(
+  paste0(
+    "RedTeamChampion",
+    sort(
+      unique(
+        dados[
+          which(
+            dados$Role == "mid"
+          ),
+        ]$RedTeamChampion
+      )
+    )[1]
+  ),
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  "mid"
+)
+dados_de_mid <- rbind(
+  dados_de_mid,
+  linha_de_referencia_mid_azul,
+  linha_de_referencia_mid_vermelho
+)
+linha_de_referencia_bottom_azul <- c(
+  paste0(
+    "BlueTeamChampion",
+    sort(
+      unique(
+        dados[
+          which(
+            dados$Role == "bottom"
+          ),
+        ]$BlueTeamChampion
+      )
+    )[1]
+  ),
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  "bottom"
+)
+linha_de_referencia_bottom_vermelho <- c(
+  paste0(
+    "RedTeamChampion",
+    sort(
+      unique(
+        dados[
+          which(
+            dados$Role == "bottom"
+          ),
+        ]$RedTeamChampion
+      )
+    )[1]
+  ),
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  "bottom"
+)
+dados_de_bottom <- rbind(
+  dados_de_bottom,
+  linha_de_referencia_bottom_azul,
+  linha_de_referencia_bottom_vermelho
+)
+linha_de_referencia_support_azul <- c(
+  paste0(
+    "BlueTeamChampion",
+    sort(
+      unique(
+        dados[
+          which(
+            dados$Role == "support"
+          ),
+        ]$BlueTeamChampion
+      )
+    )[1]
+  ),
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  "support"
+)
+linha_de_referencia_support_vermelho <- c(
+  paste0(
+    "RedTeamChampion",
+    sort(
+      unique(
+        dados[
+          which(
+            dados$Role == "support"
+          ),
+        ]$RedTeamChampion
+      )
+    )[1]
+  ),
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  "support"
+)
+dados_de_support <- rbind(
+  dados_de_support,
+  linha_de_referencia_support_azul,
+  linha_de_referencia_support_vermelho
+)
+dados_completos <- rbind(
+  dados_de_top,
+  dados_de_jungle,
+  dados_de_mid,
+  dados_de_bottom,
+  dados_de_support
+)
+colnames(dados_completos)[1] <- "Parameter"
+dados_completos
+```
+Nossos resultados já estão bem legais assim, mas, vamos mudar algumas coisas para facilitar a interpretação. Como valores positivos nas estimativas significam vantagem do campeão do lado azul, quando o campeão está no lado vermelho, valores altamente positivos são ruins, enquanto o contrário vale no lado azul. Por isso, vamos tentar mudar isso, marcando em que lado cada campeão está e multiplicando por -1 os valores no lado vermelho. E vamos fazer isso quebrando os nomes dos parâmetros.
+```{r dados_finais}
+dados_completos[, c("Side", "Champion")] <- do.call(
+  rbind,
+  strsplit(
+    dados_completos$Parameter,
+    split = "TeamChampion"
+  )
+)
+```
+Agora, só o que falta é incluir o número de jogos jogados por cada campeão em cada lado, para termos uma ideia de quais estimativas são mais significativas. Depois disso, já podemos salvar nossa tabela, sem nos esquecermos de multiplicar por -1 todos os valores dos campeões no lado vermelho.
+```{r dados_finais_2}
+numeros_de_jogos_jogados_por_cada_campeao_no_lado_azul <- dados |> 
+  group_by(BlueTeamChampion, Role) |> 
+  summarise("Games_played" = n())
+colnames(numeros_de_jogos_jogados_por_cada_campeao_no_lado_azul)[1] <- "Champion"
+numeros_de_jogos_jogados_por_cada_campeao_no_lado_azul$Side <- "Blue"
+numeros_de_jogos_jogados_por_cada_campeao_no_lado_vermelho <- dados |> 
+  group_by(RedTeamChampion, Role) |> 
+  summarise("Games_played" = n())
+colnames(numeros_de_jogos_jogados_por_cada_campeao_no_lado_vermelho)[1] <- "Champion"
+numeros_de_jogos_jogados_por_cada_campeao_no_lado_vermelho$Side <- "Red"
+numeros_de_jogos_jogados_por_cada_campeao_em_cada_lado <- rbind(
+  numeros_de_jogos_jogados_por_cada_campeao_no_lado_azul,
+  numeros_de_jogos_jogados_por_cada_campeao_no_lado_vermelho
+)
+dados_completos <- dados_completos |> 
+  merge(
+    numeros_de_jogos_jogados_por_cada_campeao_em_cada_lado,
+    by = c("Champion", "Side", "Role"),
+    all.x = T
+  )
+dados_finais <- dados_completos[-4]
+dados_finais$Kills <- as.numeric(dados_finais$Kills)
+dados_finais$Deaths <- as.numeric(dados_finais$Deaths)
+dados_finais$Assists <- as.numeric(dados_finais$Assists)
+dados_finais$CSAt15Min <- as.numeric(dados_finais$CSAt15Min)
+dados_finais$CSAtEnd <- as.numeric(dados_finais$CSAtEnd)
+dados_finais$GoldAt15Min <- as.numeric(dados_finais$GoldAt15Min)
+dados_finais$GoldAtEnd <- as.numeric(dados_finais$GoldAtEnd)
+dados_finais$Kills[which(dados_finais$Side == "Red")] <- 
+  (-1)*dados_finais$Kills[which(dados_finais$Side == "Red")]
+dados_finais$Deaths[which(dados_finais$Side == "Red")] <- 
+  (-1)*dados_finais$Deaths[which(dados_finais$Side == "Red")]
+dados_finais$Assists[which(dados_finais$Side == "Red")] <- 
+  (-1)*dados_finais$Assists[which(dados_finais$Side == "Red")]
+dados_finais$CSAt15Min[which(dados_finais$Side == "Red")] <- 
+  (-1)*dados_finais$CSAt15Min[which(dados_finais$Side == "Red")]
+dados_finais$CSAtEnd[which(dados_finais$Side == "Red")] <- 
+  (-1)*dados_finais$CSAtEnd[which(dados_finais$Side == "Red")]
+dados_finais$GoldAt15Min[which(dados_finais$Side == "Red")] <- 
+  (-1)*dados_finais$GoldAt15Min[which(dados_finais$Side == "Red")]
+dados_finais$GoldAtEnd[which(dados_finais$Side == "Red")] <- 
+  (-1)*dados_finais$GoldAtEnd[which(dados_finais$Side == "Red")]
+write.csv2(
+  dados_finais,
+  file = "Script 7 - Estimativas dos efeitos dos campeões nos modelos simples.csv"
+)
+```

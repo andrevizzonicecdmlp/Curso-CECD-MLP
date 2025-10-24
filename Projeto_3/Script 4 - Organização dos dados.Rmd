@@ -1,0 +1,166 @@
+---
+title: "Script 4 - Organização dos dados"
+author: "André Vizzoni"
+date: "2025-05-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Preâmbulo
+
+Pacote necessário.
+
+```{r preambulo}
+library(tidyverse)
+```
+
+# Leitura dos dados
+
+Vamos ler o conjunto de dados que criamos no script 1, apenas com as linhas úteis. E também vamos ler o de-para que criamos no último script.
+
+```{r dados}
+dados <- read.csv2(
+  "Script 1 - Dados sem linhas com problemas claros.csv",
+  colClasses = c(
+    "GameID" = "character",
+    "RedTeamID" = "character",
+    "BlueTeamID" = "character"
+  )
+)
+de_para <- read.csv2("De-para entre nomes de times e seus nomes abreviados.csv")
+```
+
+# Formato buscado
+
+O que buscamos agora é organizar os dados para que fiquem com as seguintes colunas:
+
+- Id do jogo;
+- Ids dos times;
+- Nomes dos times;
+- Abreviações dos times;
+- Papel dos jogadores;
+- Jogadores de cada time;
+- Estatísticas de cada jogador.
+
+Atualmente, só temos os itens 1, 2, 3 e 5 como queremos. Portanto, precisamos usar nosso de-para para alcançar o formato desejado. Vamos começar usando a função strsplit para retirar as abreviações dos times de cada jogador. Depois, vamos unir cada abreviação aos nomes dos times da partida para descobrir qual é o time de cada jogador, usando o de-para.
+
+```{r abreviacoes}
+abreviacoes <- do.call(
+  rbind,
+  strsplit(
+    dados$PlayerName,
+    split = " "
+  )
+)[,1]
+dados$Player_team_abbreviation <- abreviacoes
+dados$Player_team_abbreviation_plus_red_team_name <- paste(
+  dados$RedTeamName,
+  dados$Player_team_abbreviation,
+  sep = " - "
+)
+dados$Player_team_abbreviation_plus_blue_team_name <- paste(
+  dados$BlueTeamName,
+  dados$Player_team_abbreviation,
+  sep = " - "
+)
+de_para_pares <- paste(
+  de_para$RedTeamName,
+  de_para$Abbr_1,
+  sep = " - "
+)
+dados$Is_player_from_red_team <- 1 - is.na(
+  match(
+    x = dados$Player_team_abbreviation_plus_red_team_name,
+    table = de_para_pares
+  )
+)
+dados$Is_player_from_blue_team <- 1 - is.na(
+  match(
+    x = dados$Player_team_abbreviation_plus_blue_team_name,
+    table = de_para_pares
+  )
+)
+```
+Agora finalmente temos uma marcação no banco de dados sobre qual é o time de cada jogador. E com isso conseguimos organizar os dados no formato que queremos.
+```{r organizacao}
+dados_de_jogadores_dos_times_azuis <- dados[
+  which(
+    dados$Is_player_from_blue_team == 1
+  ),
+  -1
+]
+colnames(dados_de_jogadores_dos_times_azuis)[
+  c(
+    8,
+    9,
+    11 : 19
+  )
+] <- c(
+  "BlueTeamChampion",
+  "BlueTeamPlayer",
+  "BlueTeamKills",
+  "BlueTeamDeaths",
+  "BlueTeamAssists",
+  "RedTeamChampion",
+  "RedTeamPlayer",
+  "BlueTeamCSAt15Min",
+  "BlueTeamGoldAt15Min",
+  "BlueTeamCSAtEnd",
+  "BlueTeamGoldAtEnd"
+)
+dados_de_jogadores_dos_times_vermelhos <- dados[
+  which(
+    dados$Is_player_from_blue_team == 0
+  ),
+  -1
+]
+colnames(dados_de_jogadores_dos_times_vermelhos)[
+  c(
+    8,
+    9,
+    11 : 19
+  )
+] <- c(
+  "RedTeamChampion",
+  "RedTeamPlayer",
+  "RedTeamKills",
+  "RedTeamDeaths",
+  "RedTeamAssists",
+  "BlueTeamChampion",
+  "BlueTeamPlayer",
+  "RedTeamCSAt15Min",
+  "RedTeamGoldAt15Min",
+  "RedTeamCSAtEnd",
+  "RedTeamGoldAtEnd"
+)
+dados_completos <- dados_de_jogadores_dos_times_azuis[, - c(20 : 24)] |>
+  merge(
+    dados_de_jogadores_dos_times_vermelhos[, - c(20 : 24)],
+        by = c(
+          "GameID",
+          "RedTeamID",
+          "BlueTeamID",
+          "League",
+          "RedTeamName",
+          "BlueTeamName",
+          "Role",
+          "PatchVersion",
+          "BlueTeamChampion",
+          "BlueTeamPlayer",
+          "RedTeamChampion",
+          "RedTeamPlayer"
+        )
+  )
+dados_completos
+```
+
+Pronto, finalmente nossos dados estão no formato necessário para nossas análises. Portanto, vamos salvá-los assim.
+```{r organizacao_2}
+write.csv2(
+  dados_completos,
+  file = "Script 4 - Dados no formato desejado.csv"
+)
+```

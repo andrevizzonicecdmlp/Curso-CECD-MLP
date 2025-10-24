@@ -1,0 +1,566 @@
+---
+title: "Script 6 - Modelos com apenas campeões como variáveis explicativas"
+author: "André Vizzoni"
+date: "2025-05-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Preâmbulo
+
+Pacote necessário.
+
+```{r preambulo}
+library(tidyverse)
+```
+
+# Leitura dos dados
+
+Vamos ler o conjunto de dados que criamos no script 4.
+
+```{r dados}
+dados <- read.csv2(
+  "Script 4 - Dados no formato desejado.csv",
+  colClasses = c(
+    "GameID" = "character",
+    "RedTeamID" = "character",
+    "BlueTeamID" = "character"
+  )
+)[-1]
+```
+
+# Modelos de forças dos campeões
+
+Vamos começar os trabalhos estimando as forças de cada campeão. Para isso, vamos fazer modelos de regressão linear com o objetivo de estimar qual é a vantagem do time azul em cada uma das estatísticas, levando em conta quem são os campeões de cada lado. Portanto, precisamos criar 35 modelos, um para cada uma das 7 estatísticas e cada um dos 5 papeis.
+
+## Abates
+
+Vamos começar com os modelos de abates. Primeiro, o para jogadores de top.
+
+```{r abates_top}
+modelo_de_abates_para_top <- lm(
+  (BlueTeamKills - RedTeamKills) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "top"),]
+)
+summary(modelo_de_abates_para_top)
+```
+
+Agora, o modelo para junglers.
+
+```{r abates_jungle}
+modelo_de_abates_para_jungle <- lm(
+  (BlueTeamKills - RedTeamKills) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "jungle"),]
+)
+summary(modelo_de_abates_para_jungle)
+```
+
+Em seguida, o modelo para mid.
+
+```{r abates_mid}
+modelo_de_abates_para_mid <- lm(
+  (BlueTeamKills - RedTeamKills) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "mid"),]
+)
+summary(modelo_de_abates_para_mid)
+```
+
+Agora, o modelo para atiradores.
+
+```{r abates_bottom}
+modelo_de_abates_para_bottom <- lm(
+  (BlueTeamKills - RedTeamKills) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "bottom"),]
+)
+summary(modelo_de_abates_para_bottom)
+```
+
+Finalmente, o modelo para support.
+
+```{r abates_support}
+modelo_de_abates_para_support <- lm(
+  (BlueTeamKills - RedTeamKills) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "support"),]
+)
+summary(modelo_de_abates_para_support)
+```
+Podemos ver que os campeões envolvidos em cada lado do confronto têm um efeito significativo no número de abates que o jogador do lado azul tem a mais, mas, o efeito não é imenso, com o R2 médio ficando em torno de 10%. Mas, é importante lembrar que ainda não adicionamos informações de jogadores ou de patch. Vamos salvar os dados dos modelos, agora.
+
+```{r abates_salvamento}
+write.csv2(
+  modelo_de_abates_para_top$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de abates com base nos campeoes escolhidos no top.csv"
+)
+write.csv2(
+  modelo_de_abates_para_jungle$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de abates com base nos campeoes escolhidos no jungle.csv"
+)
+write.csv2(
+  modelo_de_abates_para_mid$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de abates com base nos campeoes escolhidos no mid.csv"
+)
+write.csv2(
+  modelo_de_abates_para_bottom$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de abates com base nos campeoes escolhidos no bottom.csv"
+)
+write.csv2(
+  modelo_de_abates_para_support$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de abates com base nos campeoes escolhidos no support.csv"
+)
+```
+
+## Mortes
+
+Vamos agora para os modelos de mortes. Primeiro, o para jogadores de top.
+
+```{r mortes_top}
+modelo_de_mortes_para_top <- lm(
+  (BlueTeamDeaths - RedTeamDeaths) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "top"),]
+)
+summary(modelo_de_mortes_para_top)
+```
+
+Agora, o modelo para junglers.
+
+```{r mortes_jungle}
+modelo_de_mortes_para_jungle <- lm(
+  (BlueTeamDeaths - RedTeamDeaths) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "jungle"),]
+)
+summary(modelo_de_mortes_para_jungle)
+```
+
+Em seguida, o modelo para mid.
+
+```{r mortes_mid}
+modelo_de_mortes_para_mid <- lm(
+  (BlueTeamDeaths - RedTeamDeaths) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "mid"),]
+)
+summary(modelo_de_mortes_para_mid)
+```
+
+Agora, o modelo para atiradores.
+
+```{r mortes_bottom}
+modelo_de_mortes_para_bottom <- lm(
+  (BlueTeamDeaths - RedTeamDeaths) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "bottom"),]
+)
+summary(modelo_de_mortes_para_bottom)
+```
+
+Finalmente, o modelo para support.
+
+```{r mortes_support}
+modelo_de_mortes_para_support <- lm(
+  (BlueTeamDeaths - RedTeamDeaths) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "support"),]
+)
+summary(modelo_de_mortes_para_support)
+```
+Podemos ver que os campeões envolvidos em cada lado do confronto têm um efeito significativo no número de mortes que o jogador do lado azul tem a mais, mas, o efeito não é imenso, com o R2 médio ficando em torno de 8%. Mas, é importante lembrar que ainda não adicionamos informações de jogadores ou de patch. Vamos salvar os dados dos modelos, agora.
+
+```{r mortes_salvamento}
+write.csv2(
+  modelo_de_mortes_para_top$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de mortes com base nos campeoes escolhidos no top.csv"
+)
+write.csv2(
+  modelo_de_mortes_para_jungle$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de mortes com base nos campeoes escolhidos no jungle.csv"
+)
+write.csv2(
+  modelo_de_mortes_para_mid$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de mortes com base nos campeoes escolhidos no mid.csv"
+)
+write.csv2(
+  modelo_de_mortes_para_bottom$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de mortes com base nos campeoes escolhidos no bottom.csv"
+)
+write.csv2(
+  modelo_de_mortes_para_support$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de mortes com base nos campeoes escolhidos no support.csv"
+)
+```
+
+## Assistências
+
+Vamos agora para os modelos de assistências. Primeiro, o para jogadores de top.
+
+```{r assistencias_top}
+modelo_de_assistencias_para_top <- lm(
+  (BlueTeamAssists - RedTeamAssists) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "top"),]
+)
+summary(modelo_de_assistencias_para_top)
+```
+
+Agora, o modelo para junglers.
+
+```{r assistencias_jungle}
+modelo_de_assistencias_para_jungle <- lm(
+  (BlueTeamAssists - RedTeamAssists) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "jungle"),]
+)
+summary(modelo_de_assistencias_para_jungle)
+```
+
+Em seguida, o modelo para mid.
+
+```{r assistencias_mid}
+modelo_de_assistencias_para_mid <- lm(
+  (BlueTeamAssists - RedTeamAssists) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "mid"),]
+)
+summary(modelo_de_assistencias_para_mid)
+```
+
+Agora, o modelo para atiradores.
+
+```{r assistencias_bottom}
+modelo_de_assistencias_para_bottom <- lm(
+  (BlueTeamAssists - RedTeamAssists) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "bottom"),]
+)
+summary(modelo_de_assistencias_para_bottom)
+```
+
+Finalmente, o modelo para support.
+
+```{r assistencias_support}
+modelo_de_assistencias_para_support <- lm(
+  (BlueTeamAssists - RedTeamAssists) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "support"),]
+)
+summary(modelo_de_assistencias_para_support)
+```
+Podemos ver que os campeões envolvidos em cada lado do confronto têm um efeito significativo no número de assistências que o jogador do lado azul tem a mais, mas, o efeito não é imenso, com o R2 médio ficando em torno de 8%. Mas, é importante lembrar que ainda não adicionamos informações de jogadores ou de patch. Vamos salvar os dados dos modelos, agora.
+
+```{r assistencias_salvamento}
+write.csv2(
+  modelo_de_assistencias_para_top$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de assistencias com base nos campeoes escolhidos no top.csv"
+)
+write.csv2(
+  modelo_de_assistencias_para_jungle$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de assistencias com base nos campeoes escolhidos no jungle.csv"
+)
+write.csv2(
+  modelo_de_assistencias_para_mid$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de assistencias com base nos campeoes escolhidos no mid.csv"
+)
+write.csv2(
+  modelo_de_assistencias_para_bottom$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de assistencias com base nos campeoes escolhidos no bottom.csv"
+)
+write.csv2(
+  modelo_de_assistencias_para_support$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de assistencias com base nos campeoes escolhidos no support.csv"
+)
+```
+
+## CSAt15Min
+
+Vamos agora para os modelos de CSAt15Min. Primeiro, o para jogadores de top.
+
+```{r CSAt15Min_top}
+modelo_de_CSAt15Min_para_top <- lm(
+  (BlueTeamCSAt15Min - RedTeamCSAt15Min) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "top"),]
+)
+summary(modelo_de_CSAt15Min_para_top)
+```
+
+Agora, o modelo para junglers.
+
+```{r CSAt15Min_jungle}
+modelo_de_CSAt15Min_para_jungle <- lm(
+  (BlueTeamCSAt15Min - RedTeamCSAt15Min) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "jungle"),]
+)
+summary(modelo_de_CSAt15Min_para_jungle)
+```
+
+Em seguida, o modelo para mid.
+
+```{r CSAt15Min_mid}
+modelo_de_CSAt15Min_para_mid <- lm(
+  (BlueTeamCSAt15Min - RedTeamCSAt15Min) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "mid"),]
+)
+summary(modelo_de_CSAt15Min_para_mid)
+```
+
+Agora, o modelo para atiradores.
+
+```{r CSAt15Min_bottom}
+modelo_de_CSAt15Min_para_bottom <- lm(
+  (BlueTeamCSAt15Min - RedTeamCSAt15Min) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "bottom"),]
+)
+summary(modelo_de_CSAt15Min_para_bottom)
+```
+
+Finalmente, o modelo para support.
+
+```{r CSAt15Min_support}
+modelo_de_CSAt15Min_para_support <- lm(
+  (BlueTeamCSAt15Min - RedTeamCSAt15Min) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "support"),]
+)
+summary(modelo_de_CSAt15Min_para_support)
+```
+Podemos ver que os campeões envolvidos em cada lado do confronto têm um efeito significativo no número de CSAt15Min que o jogador do lado azul tem a mais, mas, o efeito não é imenso, com o R2 médio ficando em torno de 20%. Mas, é importante lembrar que ainda não adicionamos informações de jogadores ou de patch. Vamos salvar os dados dos modelos, agora.
+
+```{r CSAt15Min_salvamento}
+write.csv2(
+  modelo_de_CSAt15Min_para_top$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de CSAt15Min com base nos campeoes escolhidos no top.csv"
+)
+write.csv2(
+  modelo_de_CSAt15Min_para_jungle$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de CSAt15Min com base nos campeoes escolhidos no jungle.csv"
+)
+write.csv2(
+  modelo_de_CSAt15Min_para_mid$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de CSAt15Min com base nos campeoes escolhidos no mid.csv"
+)
+write.csv2(
+  modelo_de_CSAt15Min_para_bottom$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de CSAt15Min com base nos campeoes escolhidos no bottom.csv"
+)
+write.csv2(
+  modelo_de_CSAt15Min_para_support$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de CSAt15Min com base nos campeoes escolhidos no support.csv"
+)
+```
+## CSAtEnd
+
+Vamos agora para os modelos de CSAtEnd. Primeiro, o para jogadores de top.
+
+```{r CSAtEnd_top}
+modelo_de_CSAtEnd_para_top <- lm(
+  (BlueTeamCSAtEnd - RedTeamCSAtEnd) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "top"),]
+)
+summary(modelo_de_CSAtEnd_para_top)
+```
+
+Agora, o modelo para junglers.
+
+```{r CSAtEnd_jungle}
+modelo_de_CSAtEnd_para_jungle <- lm(
+  (BlueTeamCSAtEnd - RedTeamCSAtEnd) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "jungle"),]
+)
+summary(modelo_de_CSAtEnd_para_jungle)
+```
+
+Em seguida, o modelo para mid.
+
+```{r CSAtEnd_mid}
+modelo_de_CSAtEnd_para_mid <- lm(
+  (BlueTeamCSAtEnd - RedTeamCSAtEnd) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "mid"),]
+)
+summary(modelo_de_CSAtEnd_para_mid)
+```
+
+Agora, o modelo para atiradores.
+
+```{r CSAtEnd_bottom}
+modelo_de_CSAtEnd_para_bottom <- lm(
+  (BlueTeamCSAtEnd - RedTeamCSAtEnd) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "bottom"),]
+)
+summary(modelo_de_CSAtEnd_para_bottom)
+```
+
+Finalmente, o modelo para support.
+
+```{r CSAtEnd_support}
+modelo_de_CSAtEnd_para_support <- lm(
+  (BlueTeamCSAtEnd - RedTeamCSAtEnd) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "support"),]
+)
+summary(modelo_de_CSAtEnd_para_support)
+```
+Podemos ver que os campeões envolvidos em cada lado do confronto têm um efeito significativo no número de CSAtEnd que o jogador do lado azul tem a mais, mas, o efeito não é imenso, com o R2 médio ficando em torno de 25%. Mas, é importante lembrar que ainda não adicionamos informações de jogadores ou de patch. Vamos salvar os dados dos modelos, agora.
+
+```{r CSAtEnd_salvamento}
+write.csv2(
+  modelo_de_CSAtEnd_para_top$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de CSAtEnd com base nos campeoes escolhidos no top.csv"
+)
+write.csv2(
+  modelo_de_CSAtEnd_para_jungle$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de CSAtEnd com base nos campeoes escolhidos no jungle.csv"
+)
+write.csv2(
+  modelo_de_CSAtEnd_para_mid$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de CSAtEnd com base nos campeoes escolhidos no mid.csv"
+)
+write.csv2(
+  modelo_de_CSAtEnd_para_bottom$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de CSAtEnd com base nos campeoes escolhidos no bottom.csv"
+)
+write.csv2(
+  modelo_de_CSAtEnd_para_support$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de CSAtEnd com base nos campeoes escolhidos no support.csv"
+)
+```
+## GoldAt15Min
+
+Vamos agora para os modelos de GoldAt15Min. Primeiro, o para jogadores de top.
+
+```{r GoldAt15Min_top}
+modelo_de_GoldAt15Min_para_top <- lm(
+  (BlueTeamGoldAt15Min - RedTeamGoldAt15Min) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "top"),]
+)
+summary(modelo_de_GoldAt15Min_para_top)
+```
+
+Agora, o modelo para junglers.
+
+```{r GoldAt15Min_jungle}
+modelo_de_GoldAt15Min_para_jungle <- lm(
+  (BlueTeamGoldAt15Min - RedTeamGoldAt15Min) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "jungle"),]
+)
+summary(modelo_de_GoldAt15Min_para_jungle)
+```
+
+Em seguida, o modelo para mid.
+
+```{r GoldAt15Min_mid}
+modelo_de_GoldAt15Min_para_mid <- lm(
+  (BlueTeamGoldAt15Min - RedTeamGoldAt15Min) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "mid"),]
+)
+summary(modelo_de_GoldAt15Min_para_mid)
+```
+
+Agora, o modelo para atiradores.
+
+```{r GoldAt15Min_bottom}
+modelo_de_GoldAt15Min_para_bottom <- lm(
+  (BlueTeamGoldAt15Min - RedTeamGoldAt15Min) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "bottom"),]
+)
+summary(modelo_de_GoldAt15Min_para_bottom)
+```
+
+Finalmente, o modelo para support.
+
+```{r GoldAt15Min_support}
+modelo_de_GoldAt15Min_para_support <- lm(
+  (BlueTeamGoldAt15Min - RedTeamGoldAt15Min) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "support"),]
+)
+summary(modelo_de_GoldAt15Min_para_support)
+```
+Podemos ver que os campeões envolvidos em cada lado do confronto têm um efeito significativo no número de GoldAt15Min que o jogador do lado azul tem a mais, mas, o efeito não é imenso, com o R2 médio ficando em torno de 20%. Mas, é importante lembrar que ainda não adicionamos informações de jogadores ou de patch. Vamos salvar os dados dos modelos, agora.
+
+```{r GoldAt15Min_salvamento}
+write.csv2(
+  modelo_de_GoldAt15Min_para_top$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de GoldAt15Min com base nos campeoes escolhidos no top.csv"
+)
+write.csv2(
+  modelo_de_GoldAt15Min_para_jungle$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de GoldAt15Min com base nos campeoes escolhidos no jungle.csv"
+)
+write.csv2(
+  modelo_de_GoldAt15Min_para_mid$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de GoldAt15Min com base nos campeoes escolhidos no mid.csv"
+)
+write.csv2(
+  modelo_de_GoldAt15Min_para_bottom$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de GoldAt15Min com base nos campeoes escolhidos no bottom.csv"
+)
+write.csv2(
+  modelo_de_GoldAt15Min_para_support$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de GoldAt15Min com base nos campeoes escolhidos no support.csv"
+)
+```
+## GoldAtEnd
+
+Vamos agora para os modelos de GoldAtEnd. Primeiro, o para jogadores de top.
+
+```{r GoldAtEnd_top}
+modelo_de_GoldAtEnd_para_top <- lm(
+  (BlueTeamGoldAtEnd - RedTeamGoldAtEnd) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "top"),]
+)
+summary(modelo_de_GoldAtEnd_para_top)
+```
+
+Agora, o modelo para junglers.
+
+```{r GoldAtEnd_jungle}
+modelo_de_GoldAtEnd_para_jungle <- lm(
+  (BlueTeamGoldAtEnd - RedTeamGoldAtEnd) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "jungle"),]
+)
+summary(modelo_de_GoldAtEnd_para_jungle)
+```
+
+Em seguida, o modelo para mid.
+
+```{r GoldAtEnd_mid}
+modelo_de_GoldAtEnd_para_mid <- lm(
+  (BlueTeamGoldAtEnd - RedTeamGoldAtEnd) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "mid"),]
+)
+summary(modelo_de_GoldAtEnd_para_mid)
+```
+
+Agora, o modelo para atiradores.
+
+```{r GoldAtEnd_bottom}
+modelo_de_GoldAtEnd_para_bottom <- lm(
+  (BlueTeamGoldAtEnd - RedTeamGoldAtEnd) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "bottom"),]
+)
+summary(modelo_de_GoldAtEnd_para_bottom)
+```
+
+Finalmente, o modelo para support.
+
+```{r GoldAtEnd_support}
+modelo_de_GoldAtEnd_para_support <- lm(
+  (BlueTeamGoldAtEnd - RedTeamGoldAtEnd) ~ BlueTeamChampion + RedTeamChampion,
+  data = dados[which(dados$Role == "support"),]
+)
+summary(modelo_de_GoldAtEnd_para_support)
+```
+Podemos ver que os campeões envolvidos em cada lado do confronto têm um efeito significativo no número de GoldAtEnd que o jogador do lado azul tem a mais, mas, o efeito não é imenso, com o R2 médio ficando em torno de 25%. Mas, é importante lembrar que ainda não adicionamos informações de jogadores ou de patch. Vamos salvar os dados dos modelos, agora.
+
+```{r GoldAtEnd_salvamento}
+write.csv2(
+  modelo_de_GoldAtEnd_para_top$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de GoldAtEnd com base nos campeoes escolhidos no top.csv"
+)
+write.csv2(
+  modelo_de_GoldAtEnd_para_jungle$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de GoldAtEnd com base nos campeoes escolhidos no jungle.csv"
+)
+write.csv2(
+  modelo_de_GoldAtEnd_para_mid$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de GoldAtEnd com base nos campeoes escolhidos no mid.csv"
+)
+write.csv2(
+  modelo_de_GoldAtEnd_para_bottom$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de GoldAtEnd com base nos campeoes escolhidos no bottom.csv"
+)
+write.csv2(
+  modelo_de_GoldAtEnd_para_support$coefficients,
+  file = "Script 6 - Resultados do modelo para estimar numero de GoldAtEnd com base nos campeoes escolhidos no support.csv"
+)
+```

@@ -1,0 +1,83 @@
+---
+title: "Script 2 - Dados brutos de campeões"
+author: "André Vizzoni"
+date: "2025-05-10"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Preâmbulo
+
+Pacote necessário.
+
+```{r preambulo}
+library(tidyverse)
+```
+
+# Leitura dos dados
+
+Vamos ler o conjunto de dados que criamos no script anterior, apenas com as linhas úteis.
+
+```{r dados}
+dados <- read.csv2(
+  "Script 1 - Dados sem linhas com problemas claros.csv",
+  colClasses = c(
+    "GameID" = "character",
+    "RedTeamID" = "character",
+    "BlueTeamID" = "character"
+  )
+)
+```
+
+# Estatísticas dos campeões
+
+Agora vamos calcular as estatísticas brutas para cada campeão, ou seja, nada mais do que suas médias para cada estatística, sem levar em conta seus adversários
+
+```{r estatisticas}
+estatisticas_por_campeao <- dados |> 
+  group_by(ChampionID) |> 
+  summarise(games_played = n(),
+            kills = mean(Kills),
+            deaths = mean(Deaths),
+            assists = mean(Assists),
+            cs_at_15_min = mean(CSAt15Min),
+            cs_at_end = mean(CSAtEnd),
+            gold_at_15_min = mean(GoldAt15Min),
+            gold_at_end = mean(GoldAtEnd))
+estatisticas_por_campeao <- cbind(estatisticas_por_campeao[1],
+                                  "all",
+                                  estatisticas_por_campeao[-1])
+colnames(estatisticas_por_campeao)[2] <- "Role"
+estatisticas_por_campeao_em_cada_papel <- dados |> 
+  group_by(ChampionID, Role) |> 
+  summarise(games_played = n(),
+            kills = mean(Kills),
+            deaths = mean(Deaths),
+            assists = mean(Assists),
+            cs_at_15_min = mean(CSAt15Min),
+            cs_at_end = mean(CSAtEnd),
+            gold_at_15_min = mean(GoldAt15Min),
+            gold_at_end = mean(GoldAtEnd))
+estatisticas_totais_por_campeao <- rbind(
+  estatisticas_por_campeao,
+  estatisticas_por_campeao_em_cada_papel
+)
+write.csv2(estatisticas_totais_por_campeao,
+           file = "Script 2 - Estatísticas de cada campeão em 2025.csv")
+estatisticas_totais_por_campeao
+```
+
+# Confrontos dos campeões
+
+E agora vamos coletar os dados de confrontos entre campeões para cada papel.
+```{r confrontos}
+confrontos_de_cada_campeao_por_papel <- dados |> 
+  group_by(ChampionID, Role, OpposingChampionID) |> 
+  summarise(games_played = n())
+write.csv2(confrontos_de_cada_campeao_por_papel,
+           file = "Script 2 - Confrontos por campeão e papel em 2025.csv")
+confrontos_de_cada_campeao_por_papel
+```
