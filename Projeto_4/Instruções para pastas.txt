@@ -1,0 +1,3 @@
+Adicionar dados na pasta "Dados", dentro da pasta do projeto.
+
+Scripts do VS Code criarão sozinhos a pasta "Resultados"
